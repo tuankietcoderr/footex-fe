@@ -5,16 +5,16 @@ export enum EFootballShopStatus {
 }
 
 export default interface IFootballShop {
-  _id?: string;
-  name: string;
-  images?: string[];
-  logo?: string;
-  address: string;
-  phone_number?: string;
-  email?: string;
-  owner_id?: string;
-  description?: string;
-  status?: EFootballShopStatus;
-  active_at: number;
-  inactive_at: number;
+  _id?: string
+  name: string
+  images?: string[]
+  logo?: string
+  address: string
+  phone_number?: string
+  email?: string
+  owner_id?: string
+  description?: string
+  status?: EFootballShopStatus
+  active_at: number
+  inactive_at: number
 }

@@ -4,10 +4,10 @@ export enum EBOOKED_QUEUE_STATUS {
   ACCEPTED = "ACCEPTED",
 }
 export default interface IFieldBookedQueue {
-  _id?: string;
-  field_id?: string;
-  booked_time?: Date;
-  booked_by?: string;
-  time_count?: number;
-  status?: EBOOKED_QUEUE_STATUS;
+  _id?: string
+  field_id?: string
+  booked_time?: Date
+  booked_by?: string
+  time_count?: number
+  status?: EBOOKED_QUEUE_STATUS
 }

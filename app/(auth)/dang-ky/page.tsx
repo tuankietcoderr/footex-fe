@@ -1,5 +1,5 @@
-"use client";
-import { Button } from "@/components/ui/button";
+"use client"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -7,15 +7,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
-import IUser, { EUserRole } from "@/interface/IUser";
-import useUserStore from "@/store/useUserStore";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { useToast } from "@/components/ui/use-toast"
+import IUser, { EUserRole } from "@/interface/IUser"
+import useUserStore from "@/store/useUserStore"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 
 const formSchema = z
   .object({
@@ -41,9 +41,7 @@ const formSchema = z
       })
       .refine(
         (data) =>
-          new RegExp(
-            /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/
-          ).test(data),
+          new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/).test(data),
         "Mật khẩu không hợp lệ, phải có ít nhất 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt"
       ),
     confirm: z.string(),
@@ -53,7 +51,7 @@ const formSchema = z
   .refine((data) => data.password === data.confirm, {
     message: "Mật khẩu không khớp",
     path: ["confirm"],
-  });
+  })
 
 const Page = () => {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -65,43 +63,43 @@ const Page = () => {
       confirm: "",
       isOwner: false,
     },
-  });
+  })
 
-  const { registerUser } = useUserStore();
-  const { toast } = useToast();
-  const [loading, setLoading] = useState(false);
+  const { registerUser } = useUserStore()
+  const { toast } = useToast()
+  const [loading, setLoading] = useState(false)
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     const processedData: IUser = {
       name: data.name,
       username: data.username,
       password: data.password,
       role: data.isOwner ? EUserRole.OWNER : EUserRole.GUEST,
-    };
-    console.log({ processedData });
-    setLoading(true);
+    }
+    console.log({ processedData })
+    setLoading(true)
     registerUser(processedData)
       .then(() => {
         toast({
           title: "Đăng ký thành công",
           description: "Chào mừng bạn đến với Footex",
-        });
+        })
       })
       .catch((err) => {
         toast({
           title: "Đăng ký thất bại",
           description: err,
-        });
+        })
       })
-      .finally(() => setLoading(false));
-  };
+      .finally(() => setLoading(false))
+  }
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-[400px] shadow-lg p-6 rounded-lg h-fit"
+        className="h-fit w-[400px] space-y-4 rounded-lg p-6 shadow-lg"
       >
-        <h1 className="text-2xl font-semibold text-center">Đăng ký</h1>
+        <h1 className="text-center text-2xl font-semibold">Đăng ký</h1>
         <FormField
           control={form.control}
           name="name"
@@ -166,7 +164,7 @@ const Page = () => {
                     {...field}
                     id="isOwner"
                     value={"OWNER"}
-                    className="h-4 w-4 border-gray-300 rounded-sm text-primary-500 focus:ring-emerald-300 accent-primary"
+                    className="text-primary-500 h-4 w-4 rounded-sm border-gray-300 accent-primary focus:ring-emerald-300"
                   />
                   <label
                     htmlFor="isOwner"
@@ -185,7 +183,7 @@ const Page = () => {
         </Button>
       </form>
     </Form>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

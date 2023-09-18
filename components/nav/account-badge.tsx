@@ -1,7 +1,7 @@
-"use client";
-import React, { useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import useUserStore from "@/store/useUserStore";
+"use client"
+import React, { useState } from "react"
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
+import useUserStore from "@/store/useUserStore"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,16 +9,16 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import Link from "next/link";
+} from "../ui/dropdown-menu"
+import Link from "next/link"
 
 const AccountBadge = () => {
-  const { user, logout } = useUserStore();
+  const { user, logout } = useUserStore()
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Avatar>
+        <Avatar className="h-8 w-8 md:h-10 md:w-10">
           <AvatarImage src={user?.avatar} alt={user?.name} />
           <AvatarFallback className="bg-primary text-primary-foreground">
             {user?.name?.substring(0, 2) || "GE"}
@@ -40,7 +40,7 @@ const AccountBadge = () => {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}
 
-export default AccountBadge;
+export default AccountBadge

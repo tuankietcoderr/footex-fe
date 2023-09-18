@@ -1,14 +1,16 @@
-"use client";
-import useUserStore from "@/store/useUserStore";
-import React, { PropsWithChildren } from "react";
-import { redirect } from "next/navigation";
+"use client"
+import useUserStore from "@/store/useUserStore"
+import React, { PropsWithChildren } from "react"
+import { redirect } from "next/navigation"
+import { useAuthModalContext } from "@/context/AuthModalContext"
 
 const Layout = ({ children }: PropsWithChildren) => {
-  const { user } = useUserStore();
+  const { user } = useUserStore()
+  const { fallbackUrl } = useAuthModalContext()
   if (user) {
-    return redirect("/");
+    return redirect(fallbackUrl || "/")
   }
-  return <div className="flex justify-center mt-8">{children}</div>;
-};
+  return <div className="mx-4 mt-8 flex justify-center md:mx-auto">{children}</div>
+}
 
-export default Layout;
+export default Layout

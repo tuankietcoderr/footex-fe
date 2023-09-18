@@ -1,5 +1,5 @@
-"use client";
-import { Button } from "@/components/ui/button";
+"use client"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -7,14 +7,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import useUserStore from "@/store/useUserStore";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { useToast } from "@/components/ui/use-toast";
-import { useState } from "react";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import useUserStore from "@/store/useUserStore"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+import { useToast } from "@/components/ui/use-toast"
+import { useState } from "react"
 
 const formSchema = z.object({
   username: z
@@ -25,10 +25,7 @@ const formSchema = z.object({
     .max(20, {
       message: "Tên đăng nhập không được quá 20 ký tự",
     })
-    .refine(
-      (data) => new RegExp("^\\w[\\w.]{2,18}\\w$").test(data),
-      "Tên đăng nhập không hợp lệ"
-    ),
+    .refine((data) => new RegExp("^\\w[\\w.]{2,18}\\w$").test(data), "Tên đăng nhập không hợp lệ"),
   password: z
     .string()
     .min(6, {
@@ -37,7 +34,7 @@ const formSchema = z.object({
     .max(20, {
       message: "Mật khẩu không được quá 20 ký tự",
     }),
-});
+})
 
 const Page = () => {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -46,37 +43,37 @@ const Page = () => {
       username: "",
       password: "",
     },
-  });
+  })
 
-  const { login } = useUserStore();
-  const { toast } = useToast();
-  const [loading, setLoading] = useState(false);
+  const { login } = useUserStore()
+  const { toast } = useToast()
+  const [loading, setLoading] = useState(false)
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    setLoading(true);
+    setLoading(true)
     login(data)
       .then(() => {
         toast({
           title: "Đăng nhập thành công",
           description: "Chào mừng bạn đến với Footex",
-        });
+        })
       })
       .catch((err) => {
         toast({
           title: "Đăng nhập thất bại",
           description: err,
-        });
+        })
       })
-      .finally(() => setLoading(false));
-  };
+      .finally(() => setLoading(false))
+  }
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-[400px] shadow-lg p-6 rounded-lg h-fit"
+        className="h-fit w-[400px] space-y-4 rounded-lg p-6 shadow-lg"
       >
-        <h1 className="text-2xl font-semibold text-center">Đăng nhập</h1>
+        <h1 className="text-center text-2xl font-semibold">Đăng nhập</h1>
 
         <FormField
           control={form.control}
@@ -109,7 +106,7 @@ const Page = () => {
         </Button>
       </form>
     </Form>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

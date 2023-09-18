@@ -1,17 +1,15 @@
-"use client";
-import React from "react";
-import { Button } from "../ui/button";
-import Link from "next/link";
-import useUserStore from "@/store/useUserStore";
-import { Skeleton } from "../ui/skeleton";
-import AccountBadge from "./account-badge";
+"use client"
+import React from "react"
+import { Button } from "../ui/button"
+import Link from "next/link"
+import useUserStore from "@/store/useUserStore"
+import { Skeleton } from "../ui/skeleton"
+import AccountBadge from "./account-badge"
 
 const AfterLoginNav = () => {
-  const { user } = useUserStore();
+  const { user } = useUserStore()
   return (
-    <div
-      className={`flex gap-2 items-center ${user ? "flex-row-reverse" : ""}`}
-    >
+    <div className={`flex items-center gap-2 ${user ? "flex-row-reverse" : ""}`}>
       {user !== undefined ? (
         user === null ? (
           <>
@@ -27,18 +25,18 @@ const AfterLoginNav = () => {
         )
       ) : (
         <>
-          <Skeleton className="w-20 h-9" />
-          <Skeleton className="w-20 h-9" />
+          <Skeleton className="h-9 w-20" />
+          <Skeleton className="h-9 w-20" />
         </>
       )}
       <Button variant={"link"} asChild>
-        <Link href={"/dang-ky"} className="text-green-500 font-bold">
+        <Link href={"/chu-san-bong"} className="font-bold text-green-500 underline">
           Dành cho chủ sân bóng
         </Link>
       </Button>
-      {user === undefined && <Skeleton className="w-10 h-10 rounded-full" />}
+      {user === undefined && <Skeleton className="h-10 w-10 rounded-full" />}
     </div>
-  );
-};
+  )
+}
 
-export default AfterLoginNav;
+export default AfterLoginNav

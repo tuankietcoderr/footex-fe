@@ -5,10 +5,10 @@ export enum EInvitementStatus {
 }
 
 export default interface IInvitement {
-  _id?: string;
-  title: string;
-  owner_title: string;
-  team_id?: string;
-  user_id?: string;
-  status: EInvitementStatus;
+  _id?: string
+  title: string
+  owner_title: string
+  team_id?: string
+  user_id?: string
+  status: EInvitementStatus
 }

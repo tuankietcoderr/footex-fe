@@ -1,7 +1,7 @@
-import FeatureWay from "@/components/home/feature-way";
-import HomeIntro from "@/components/home/home-intro";
-import MostFavoriteTeam from "@/components/home/most-favorite-team";
-import OccuringTournaments from "@/components/home/occuring-tournaments";
+import FeatureWay from "@/components/home/feature-way"
+import HomeIntro from "@/components/home/home-intro"
+import MostFavoriteTeam from "@/components/home/most-favorite-team"
+import OccuringTournaments from "@/components/home/occuring-tournaments"
 
 export default function Home() {
   return (
@@ -11,5 +11,5 @@ export default function Home() {
       <OccuringTournaments />
       <MostFavoriteTeam />
     </div>
-  );
+  )
 }
