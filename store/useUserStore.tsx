@@ -22,12 +22,12 @@ const useUserStore = create<UserStore>((set) => ({
       localStorage.setItem(COMMON.ACCESS_TOKEN, user.accessToken)
     } else {
       set({ user: null })
+      localStorage.removeItem(COMMON.ACCESS_TOKEN)
       return Promise.reject(user.message)
     }
   },
   logout: () => {
     set({ user: null })
-    localStorage.removeItem(COMMON.ACCESS_TOKEN)
   },
   loadUser: async () => {
     const user = await getUser()
@@ -35,6 +35,7 @@ const useUserStore = create<UserStore>((set) => ({
       set({ user: user.data })
     } else {
       set({ user: null })
+      localStorage.removeItem(COMMON.ACCESS_TOKEN)
     }
   },
   registerUser: async (data) => {

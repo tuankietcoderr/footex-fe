@@ -42,7 +42,7 @@ const NavigationBar = () => {
   const { user } = useUserStore()
 
   return (
-    <div className="sticky top-0 z-[99] flex items-center justify-between bg-white px-4 py-4 shadow-sm md:px-8">
+    <div className="sticky top-[-1px] z-[99] flex items-center justify-between bg-white px-4 py-4 shadow-sm md:px-[5%]">
       <Link href={"/"}>
         <Image src={"/next.svg"} alt={"Next.js"} width={100} height={100} />
       </Link>
@@ -78,12 +78,17 @@ const NavigationBar = () => {
               <>
                 <DropdownMenuItem asChild>
                   <div className="flex w-full flex-col gap-2">
-                    <Button asChild size={"sm"} className="w-full">
+                    <Button asChild size={"sm"} className="w-full rounded-full px-8">
                       <Link href={"/dang-nhap"} className="text-center">
                         Đăng nhập
                       </Link>
                     </Button>
-                    <Button variant={"outline"} size={"sm"} className="w-full" asChild>
+                    <Button
+                      variant={"outline"}
+                      size={"sm"}
+                      className="w-full rounded-full px-8"
+                      asChild
+                    >
                       <Link href={"/dang-ky"} className="text-center">
                         Đăng ký
                       </Link>
@@ -109,7 +114,7 @@ const NavigationBar = () => {
           <Button key={nav.href} asChild variant={"link"}>
             <Link
               href={nav.href}
-              className={`${pathname === nav.href ? "underline" : ""} text-center`}
+              className={`${pathname === nav.href ? "underline" : ""} text-center font-semibold`}
             >
               {nav.title}
             </Link>
@@ -120,13 +125,13 @@ const NavigationBar = () => {
         {user !== undefined ? (
           user === null ? (
             <>
-              <Button asChild size={"sm"}>
-                <Link href={"/dang-nhap"} className="text-center">
+              <Button asChild size={"sm"} className="rounded-full px-8">
+                <Link href={"/dang-nhap"} className="text-center font-semibold">
                   Đăng nhập
                 </Link>
               </Button>
-              <Button variant={"outline"} size={"sm"} asChild>
-                <Link href={"/dang-ky"} className="text-center">
+              <Button variant={"outline"} size={"sm"} className="rounded-full px-8" asChild>
+                <Link href={"/dang-ky"} className="text-center font-semibold">
                   Đăng ký
                 </Link>
               </Button>
@@ -136,8 +141,8 @@ const NavigationBar = () => {
           )
         ) : (
           <>
-            <Skeleton className="h-9 w-20" />
-            <Skeleton className="h-9 w-20" />
+            <Skeleton className="h-9 w-20 rounded-full px-8" />
+            <Skeleton className="h-9 w-20 rounded-full px-8" />
           </>
         )}
         <Button variant={"link"} className="hidden md:block" asChild>

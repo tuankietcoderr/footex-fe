@@ -13,10 +13,10 @@ const AfterLoginNav = () => {
       {user !== undefined ? (
         user === null ? (
           <>
-            <Button asChild size={"sm"}>
+            <Button asChild size={"sm"} className="rounded-full px-8">
               <Link href={"/dang-nhap"}>Đăng nhập</Link>
             </Button>
-            <Button variant={"outline"} size={"sm"} asChild>
+            <Button variant={"outline"} size={"sm"} asChild className="rounded-full px-8">
               <Link href={"/dang-ky"}>Đăng ký</Link>
             </Button>
           </>
@@ -25,8 +25,8 @@ const AfterLoginNav = () => {
         )
       ) : (
         <>
-          <Skeleton className="h-9 w-20" />
-          <Skeleton className="h-9 w-20" />
+          <Skeleton className="h-9 w-20 rounded-full px-8" />
+          <Skeleton className="h-9 w-20 rounded-full px-8" />
         </>
       )}
       <Button variant={"link"} asChild>

@@ -1,14 +1,14 @@
 import NavigationBar from "@/components/nav/navigation-bar"
 import "./globals.css"
 import type { Metadata } from "next"
-import { Bricolage_Grotesque, Lexend } from "next/font/google"
+import { Inter, Lexend } from "next/font/google"
 import Footer from "@/components/footer"
 import AuthProvider from "./provider"
 import { Toaster } from "@/components/ui/toaster"
 import { AuthModalProvider } from "@/context/AuthModalContext"
 import React from "react"
 
-const inter = Bricolage_Grotesque({
+const inter = Lexend({
   subsets: ["latin", "vietnamese"],
 })
 
