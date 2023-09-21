@@ -18,10 +18,11 @@ const AuthModal = ({ isOpen, onClose }: Props) => {
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you sure absolutely sure?</DialogTitle>
+          <DialogTitle>Bạn chưa đăng nhập.</DialogTitle>
           <DialogDescription>
-            <Button asChild onClick={onClose}>
-              <Link href="/dang-nhap">Login</Link>
+            Bạn cần đăng nhập để thực hiện chức năng này.
+            <Button asChild className="float-right mt-8" onClick={onClose}>
+              <Link href="/dang-nhap">Đăng nhập</Link>
             </Button>
           </DialogDescription>
         </DialogHeader>

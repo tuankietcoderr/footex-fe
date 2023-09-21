@@ -28,6 +28,7 @@ const useUserStore = create<UserStore>((set) => ({
   },
   logout: () => {
     set({ user: null })
+    localStorage.removeItem(COMMON.ACCESS_TOKEN)
   },
   loadUser: async () => {
     const user = await getUser()

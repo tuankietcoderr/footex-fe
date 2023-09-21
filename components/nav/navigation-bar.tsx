@@ -17,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
 import { Menu } from "lucide-react"
+import { OwnerURL } from "@/lib/url"
 interface INav {
   title: string
   href: string
@@ -40,9 +41,10 @@ const NavigationBar = () => {
 
   const pathname = usePathname()
   const { user } = useUserStore()
-
   return (
-    <div className="sticky top-[-1px] z-[99] flex items-center justify-between bg-white px-4 py-4 shadow-sm md:px-[5%]">
+    <div
+      className={`sticky top-[-1px] z-[99] flex items-center justify-between bg-white px-4 py-4 shadow-sm md:px-[5%]`}
+    >
       <Link href={"/"}>
         <Image src={"/next.svg"} alt={"Next.js"} width={100} height={100} />
       </Link>
@@ -69,7 +71,7 @@ const NavigationBar = () => {
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
               <Button variant={"link"} asChild>
-                <Link href={"/chu-san-bong"} className="font-bold text-green-500 underline">
+                <Link href={OwnerURL} className="font-bold text-green-500 underline">
                   Dành cho chủ sân bóng
                 </Link>
               </Button>
@@ -146,7 +148,7 @@ const NavigationBar = () => {
           </>
         )}
         <Button variant={"link"} className="hidden md:block" asChild>
-          <Link href={"/chu-san-bong"} className="text-center font-bold text-green-500 underline">
+          <Link href={OwnerURL} className="text-center font-bold text-green-500 underline">
             Dành cho chủ sân bóng
           </Link>
         </Button>

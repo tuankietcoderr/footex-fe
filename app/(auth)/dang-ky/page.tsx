@@ -107,7 +107,7 @@ const Page = () => {
             <FormItem>
               <FormLabel>Họ và tên</FormLabel>
               <FormControl>
-                <Input placeholder="footex" {...field} />
+                <Input placeholder="Foot Văn Tex" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -133,7 +133,7 @@ const Page = () => {
             <FormItem>
               <FormLabel>Mật khẩu</FormLabel>
               <FormControl>
-                <Input placeholder="123456789aA" {...field} type="password" />
+                <Input placeholder="123456789aA@" {...field} type="password" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -146,7 +146,7 @@ const Page = () => {
             <FormItem>
               <FormLabel>Xác nhận mật khẩu</FormLabel>
               <FormControl>
-                <Input placeholder="123456789aA" {...field} type="password" />
+                <Input placeholder="123456789aA@" {...field} type="password" />
               </FormControl>
               <FormMessage />
             </FormItem>

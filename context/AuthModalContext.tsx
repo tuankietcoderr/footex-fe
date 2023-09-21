@@ -1,11 +1,12 @@
 "use client"
 import AuthModal from "@/components/auth-modal"
+import { EUserRole } from "@/interface/IUser"
 import useUserStore from "@/store/useUserStore"
 import { usePathname } from "next/navigation"
 import { PropsWithChildren, createContext, useContext, useState } from "react"
 
 interface IAuthModalContext {
-  showModal: boolean
+  visible: boolean
   openModal: () => void
   closeModal: () => void
   fallbackUrl: string
@@ -13,7 +14,7 @@ interface IAuthModalContext {
 }
 
 export const AuthModalContext = createContext<IAuthModalContext>({
-  showModal: false,
+  visible: false,
   openModal: () => {},
   closeModal: () => {},
   fallbackUrl: "/",
@@ -21,24 +22,23 @@ export const AuthModalContext = createContext<IAuthModalContext>({
 })
 
 export const AuthModalProvider = ({ children }: PropsWithChildren) => {
-  const [showModal, setShowModal] = useState(false)
+  const [visible, setVisible] = useState(false)
   const { user } = useUserStore()
   const [fallbackUrl, setFallbackUrl] = useState<string>("/")
   const pathName = usePathname()
   const openModal = () => {
-    if (user) return
-    setShowModal(true)
+    if (visible) return
+    setVisible(true)
     setFallbackUrl(pathName)
   }
 
   const closeModal = () => {
-    setShowModal(false)
+    setVisible(false)
   }
-
   return (
     <AuthModalContext.Provider
       value={{
-        showModal,
+        visible,
         openModal,
         closeModal,
         fallbackUrl,
@@ -46,7 +46,7 @@ export const AuthModalProvider = ({ children }: PropsWithChildren) => {
       }}
     >
       {children}
-      <AuthModal isOpen={showModal} onClose={closeModal} />
+      <AuthModal isOpen={visible && !user} onClose={closeModal} />
     </AuthModalContext.Provider>
   )
 }
