@@ -1,5 +1,5 @@
 import { COMMON } from "@/constants/common"
-import IGuest, { EGuestRole } from "@/interface/IGuest"
+import IGuest from "@/interface/IGuest"
 import { getGuest, loginGuest, registerGuest } from "@/services/guest"
 import { create } from "zustand"
 

@@ -40,7 +40,7 @@ const FieldId = async ({ id }: Props) => {
             {vilizeFieldStatus(field.status!)}
           </p>
         </div>
-        <BookFieldButton />
+        <BookFieldButton fieldId={field?._id || ""} />
       </div>
       <Link
         href={ROUTE.CHI_NHANH.INDEX}

@@ -3,6 +3,7 @@ const ROUTE = {
   SAN_BONG: {
     INDEX: "/san-bong",
     ID: "/san-bong/:id",
+    BOOK: "/san-bong/:id/dat-san",
   },
   GIAI_DAU: {
     INDEX: "/giai-dau",

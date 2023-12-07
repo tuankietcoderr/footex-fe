@@ -7,6 +7,8 @@ import AuthProvider from "./provider"
 import { Toaster } from "@/components/ui/toaster"
 import { AuthModalProvider } from "@/context/AuthModalContext"
 import React from "react"
+import dynamic from "next/dynamic"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Lexend({
   subsets: ["latin", "vietnamese"],
@@ -21,6 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <body className={`${inter.className}`}>
+        <SpeedInsights />
         <AuthProvider>
           <NavigationBar />
           <AuthModalProvider>

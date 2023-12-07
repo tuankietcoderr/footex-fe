@@ -1,6 +1,5 @@
 import apiInstance from "@/api/instance"
 import API_ROUTE from "@/constants/api-route"
-import IBranch, { EFootballShopStatus } from "@/interface/IBranch"
 
 const getAllBranches = async () => {
   try {
