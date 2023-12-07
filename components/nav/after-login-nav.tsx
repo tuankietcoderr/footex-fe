@@ -2,16 +2,16 @@
 import React from "react"
 import { Button } from "../ui/button"
 import Link from "next/link"
-import useUserStore from "@/store/useUserStore"
+import useGuestStore from "@/store/useGuestStore"
 import { Skeleton } from "../ui/skeleton"
 import AccountBadge from "./account-badge"
 
 const AfterLoginNav = () => {
-  const { user } = useUserStore()
+  const { guest } = useGuestStore()
   return (
-    <div className={`flex items-center gap-2 ${user ? "flex-row-reverse" : ""}`}>
-      {user !== undefined ? (
-        user === null ? (
+    <div className={`flex items-center gap-2 ${guest ? "flex-row-reverse" : ""}`}>
+      {guest !== undefined ? (
+        guest === null ? (
           <>
             <Button asChild size={"sm"} className="rounded-full px-8">
               <Link href={"/dang-nhap"}>Đăng nhập</Link>
@@ -34,7 +34,7 @@ const AfterLoginNav = () => {
           Dành cho chủ sân bóng
         </Link>
       </Button>
-      {user === undefined && <Skeleton className="h-10 w-10 rounded-full" />}
+      {guest === undefined && <Skeleton className="h-10 w-10 rounded-full" />}
     </div>
   )
 }

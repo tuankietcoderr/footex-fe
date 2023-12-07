@@ -1,7 +1,6 @@
 "use client"
 import AuthModal from "@/components/auth-modal"
-import { EUserRole } from "@/interface/IUser"
-import useUserStore from "@/store/useUserStore"
+import useGuestStore from "@/store/useGuestStore"
 import { usePathname } from "next/navigation"
 import { PropsWithChildren, createContext, useContext, useState } from "react"
 
@@ -23,7 +22,7 @@ export const AuthModalContext = createContext<IAuthModalContext>({
 
 export const AuthModalProvider = ({ children }: PropsWithChildren) => {
   const [visible, setVisible] = useState(false)
-  const { user } = useUserStore()
+  const { guest } = useGuestStore()
   const [fallbackUrl, setFallbackUrl] = useState<string>("/")
   const pathName = usePathname()
   const openModal = () => {
@@ -46,7 +45,7 @@ export const AuthModalProvider = ({ children }: PropsWithChildren) => {
       }}
     >
       {children}
-      <AuthModal isOpen={visible && !user} onClose={closeModal} />
+      <AuthModal isOpen={visible && !guest} onClose={closeModal} />
     </AuthModalContext.Provider>
   )
 }

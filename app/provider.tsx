@@ -1,12 +1,12 @@
 "use client"
-import useUserStore from "@/store/useUserStore"
+import useGuestStore from "@/store/useGuestStore"
 import React, { PropsWithChildren, useEffect } from "react"
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
-  const { loadUser, user } = useUserStore()
+  const { loadGuest, guest } = useGuestStore()
   useEffect(() => {
     ;(async () => {
-      await loadUser()
+      await loadGuest()
     })()
   }, [])
   return children

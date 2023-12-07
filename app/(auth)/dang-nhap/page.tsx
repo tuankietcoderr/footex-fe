@@ -9,7 +9,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import useUserStore from "@/store/useUserStore"
+import useGuestStore from "@/store/useGuestStore"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -17,35 +17,20 @@ import { useToast } from "@/components/ui/use-toast"
 import { useState } from "react"
 
 const formSchema = z.object({
-  username: z
-    .string()
-    .min(2, {
-      message: "Tên đăng nhập phải có ít nhất 2 ký tự",
-    })
-    .max(20, {
-      message: "Tên đăng nhập không được quá 20 ký tự",
-    })
-    .refine((data) => new RegExp("^\\w[\\w.]{2,18}\\w$").test(data), "Tên đăng nhập không hợp lệ"),
-  password: z
-    .string()
-    .min(6, {
-      message: "Mật khẩu phải có ít nhất 6 ký tự",
-    })
-    .max(20, {
-      message: "Mật khẩu không được quá 20 ký tự",
-    }),
+  emailOrPhoneNumber: z.string(),
+  password: z.string(),
 })
 
 const Page = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      emailOrPhoneNumber: "",
       password: "",
     },
   })
 
-  const { login } = useUserStore()
+  const { login } = useGuestStore()
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)
 
@@ -77,12 +62,12 @@ const Page = () => {
 
         <FormField
           control={form.control}
-          name="username"
+          name="emailOrPhoneNumber"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Tên người dùng</FormLabel>
+              <FormLabel>Email/Số điện thoại</FormLabel>
               <FormControl>
-                <Input placeholder="footex" {...field} />
+                <Input placeholder="Nhập email/số điện thoại" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

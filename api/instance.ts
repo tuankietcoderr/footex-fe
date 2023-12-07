@@ -1,11 +1,9 @@
+import API_ROUTE from "@/constants/api-route"
 import { COMMON } from "@/constants/common"
 import axios from "axios"
 
 let apiInstance = axios.create({
-  baseURL:
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:2003/api"
-      : "https://footex.up.railway.app/api",
+  baseURL: API_ROUTE.BASE_URL,
 })
 
 apiInstance.interceptors.request.use(async (config) => {

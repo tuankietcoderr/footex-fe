@@ -1,7 +1,17 @@
 import React from "react"
+import AllTournaments from "./_components/all-tournaments"
+import { ParamsProps } from "@/utils/params"
+import Sidebar from "./_components/sidebar"
 
-const page = () => {
-  return <div>page</div>
+const page = ({ searchParams }: ParamsProps) => {
+  return (
+    <div className="mx-[5%] mt-4 grid grid-cols-[16rem_auto] space-x-4">
+      <Sidebar />
+      <div>
+        <AllTournaments searchParams={searchParams} />
+      </div>
+    </div>
+  )
 }
 
 export default page

@@ -1,4 +1,5 @@
 "use client"
+import Address from "@/components/address"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -10,8 +11,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
-import IUser, { EUserRole } from "@/interface/IUser"
-import useUserStore from "@/store/useUserStore"
+import IGuest from "@/interface/IGuest"
+import useGuestStore from "@/store/useGuestStore"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -19,17 +20,14 @@ import * as z from "zod"
 
 const formSchema = z
   .object({
-    username: z
+    email: z.string().email({
+      message: "Email không hợp lệ",
+    }),
+    phoneNumber: z
       .string()
-      .min(2, {
-        message: "Tên đăng nhập phải có ít nhất 2 ký tự",
-      })
-      .max(20, {
-        message: "Tên đăng nhập không được quá 20 ký tự",
-      })
       .refine(
-        (data) => new RegExp("^\\w[\\w.]{2,18}\\w$").test(data),
-        "Tên đăng nhập không hợp lệ"
+        (data) => new RegExp(/^(0[1-9])+([0-9]{8})\b/).test(data),
+        "Số điện thoại không hợp lệ"
       ),
     password: z
       .string()
@@ -46,7 +44,11 @@ const formSchema = z
       ),
     confirm: z.string(),
     name: z.string().min(2, { message: "Tên phải có ít nhất 2 ký tự" }),
-    isOwner: z.boolean(),
+    city: z.string().nonempty({ message: "Tỉnh/thành phố không được để trống" }),
+    district: z.string().nonempty({ message: "Quận/huyện không được để trống" }),
+    ward: z.string().nonempty({ message: "Phường/xã không được để trống" }),
+    street: z.string(),
+    houseNumber: z.string(),
   })
   .refine((data) => data.password === data.confirm, {
     message: "Mật khẩu không khớp",
@@ -57,27 +59,23 @@ const Page = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      email: "",
+      phoneNumber: "",
       password: "",
       name: "",
       confirm: "",
-      isOwner: false,
     },
   })
 
-  const { registerUser } = useUserStore()
+  const { registerGuest } = useGuestStore()
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    const processedData: IUser = {
-      name: data.name,
-      username: data.username,
-      password: data.password,
-      role: data.isOwner ? EUserRole.OWNER : EUserRole.GUEST,
+    const processedData: IGuest = {
+      ...data,
     }
-    console.log({ processedData })
     setLoading(true)
-    registerUser(processedData)
+    registerGuest(processedData)
       .then(() => {
         toast({
           title: "Đăng ký thành công",
@@ -115,17 +113,31 @@ const Page = () => {
         />
         <FormField
           control={form.control}
-          name="username"
+          name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Tên người dùng</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="footex" {...field} />
+                <Input placeholder="footex@footex.com" type="email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="phoneNumber"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Số điện thoại</FormLabel>
+              <FormControl>
+                <Input placeholder="0123456789" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Address showStreet showHouseNumber />
         <FormField
           control={form.control}
           name="password"
@@ -152,32 +164,7 @@ const Page = () => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="isOwner"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <div className="flex items-center space-x-2">
-                  <Input
-                    type="checkbox"
-                    {...field}
-                    id="isOwner"
-                    value={"OWNER"}
-                    className="text-primary-500 h-4 w-4 rounded-sm border-gray-300 accent-primary focus:ring-emerald-300"
-                  />
-                  <label
-                    htmlFor="isOwner"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    Tôi là chủ sân bóng
-                  </label>
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+
         <Button type="submit" className="w-full" disabled={loading}>
           {!loading ? "Đăng ký" : "Đang đăng ký..."}
         </Button>

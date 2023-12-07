@@ -1,9 +1,9 @@
-import FeatureWay from "@/components/home/feature-way"
-import HomeIntro from "@/components/home/home-intro"
-import MostFavoriteTeam from "@/components/home/most-favorite-team"
-import OccuringTournaments from "@/components/home/occuring-tournaments"
-import Onboard from "@/components/home/onboard"
-import WhyChooseUs from "@/components/home/why-choose-us"
+import FeatureWay from "@/app/_components/feature-way"
+import HomeIntro from "@/app/_components/home-intro"
+import MostFavoriteTeam from "@/app/_components/most-favorite-team"
+import OccuringTournaments from "@/app/_components/occuring-tournaments"
+import Onboard from "@/app/_components/onboard"
+import WhyChooseUs from "@/app/_components/why-choose-us"
 
 export default function Home() {
   return (

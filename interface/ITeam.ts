@@ -1,11 +1,11 @@
-import IUser from "./IUser"
+import IUser from "./IOwner"
 
 export default interface ITeam {
   _id?: string
   name: string
-  logo?: string
-  description?: string
+  logo: string
+  description: string
   images?: string[]
   members: string[]
-  owner_id: string | IUser
+  owner: string | IUser
 }

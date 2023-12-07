@@ -3,16 +3,14 @@ import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 import { Button } from "../ui/button"
-import AfterLoginNav from "./after-login-nav"
 import { usePathname } from "next/navigation"
 import AccountBadge from "./account-badge"
 import { Skeleton } from "../ui/skeleton"
-import useUserStore from "@/store/useUserStore"
+import useGuestStore from "@/store/useGuestStore"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
@@ -40,16 +38,23 @@ const NavigationBar = () => {
   ]
 
   const pathname = usePathname()
-  const { user } = useUserStore()
+  const { guest } = useGuestStore()
+
+  const isNavActive = (href: string) => {
+    if (pathname === "/" && href === "/") return true
+    if (pathname.includes(href) && href !== "/") return true
+    return false
+  }
+
   return (
     <div
-      className={`sticky top-[-1px] z-[99] flex items-center justify-between bg-white px-4 py-4 shadow-sm md:px-[5%]`}
+      className={`z-[99] flex items-center justify-between bg-white px-4 py-4 shadow-sm md:px-[5%]`}
     >
       <Link href={"/"}>
         <Image src={"/next.svg"} alt={"Next.js"} width={100} height={100} />
       </Link>
       <div className="flex gap-4 md:hidden">
-        {user && (
+        {guest && (
           <div className="block md:hidden">
             <AccountBadge />
           </div>
@@ -62,7 +67,7 @@ const NavigationBar = () => {
             {staticNav.map((nav) => (
               <DropdownMenuItem key={nav.href} asChild>
                 <Button asChild variant={"link"}>
-                  <Link href={nav.href} className={`${pathname === nav.href ? "underline" : ""}`}>
+                  <Link href={nav.href} className={`${isNavActive(nav.href) ? "underline" : ""}`}>
                     {nav.title}
                   </Link>
                 </Button>
@@ -76,7 +81,7 @@ const NavigationBar = () => {
                 </Link>
               </Button>
             </DropdownMenuItem>
-            {user !== undefined ? (
+            {guest !== undefined ? (
               <>
                 <DropdownMenuItem asChild>
                   <div className="flex w-full flex-col gap-2">
@@ -116,16 +121,16 @@ const NavigationBar = () => {
           <Button key={nav.href} asChild variant={"link"}>
             <Link
               href={nav.href}
-              className={`${pathname === nav.href ? "underline" : ""} text-center font-semibold`}
+              className={`${isNavActive(nav.href) ? "underline" : ""} text-center font-semibold`}
             >
               {nav.title}
             </Link>
           </Button>
         ))}
       </div>
-      <div className={`items-center gap-2 ${user ? "flex-row-reverse" : ""} hidden md:flex`}>
-        {user !== undefined ? (
-          user === null ? (
+      <div className={`items-center gap-2 ${guest ? "flex-row-reverse" : ""} hidden md:flex`}>
+        {guest !== undefined ? (
+          guest === null ? (
             <>
               <Button asChild size={"sm"} className="rounded-full px-8">
                 <Link href={"/dang-nhap"} className="text-center font-semibold">
@@ -152,7 +157,7 @@ const NavigationBar = () => {
             Dành cho chủ sân bóng
           </Link>
         </Button>
-        {user === undefined && <Skeleton className="h-10 w-10 rounded-full" />}
+        {guest === undefined && <Skeleton className="h-10 w-10 rounded-full" />}
       </div>
     </div>
   )
