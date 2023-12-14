@@ -1,4 +1,5 @@
 "use client"
+import { loginGuest } from "@/actions/auth-action"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -9,16 +10,16 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import useGuestStore from "@/store/useGuestStore"
+import ROUTE from "@/constants/route"
 import { zodResolver } from "@hookform/resolvers/zod"
+import Link from "next/link"
 import { useForm } from "react-hook-form"
+import toast from "react-hot-toast"
 import * as z from "zod"
-import { useToast } from "@/components/ui/use-toast"
-import { useState } from "react"
 
 const formSchema = z.object({
   emailOrPhoneNumber: z.string(),
-  password: z.string(),
+  password: z.string().min(6, "Mật khẩu phải có ít nhất 6 ký tự"),
 })
 
 const Page = () => {
@@ -30,26 +31,20 @@ const Page = () => {
     },
   })
 
-  const { login } = useGuestStore()
-  const { toast } = useToast()
-  const [loading, setLoading] = useState(false)
-
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    setLoading(true)
-    login(data)
-      .then(() => {
-        toast({
-          title: "Đăng nhập thành công",
-          description: "Chào mừng bạn đến với Footex",
-        })
-      })
-      .catch((err) => {
-        toast({
-          title: "Đăng nhập thất bại",
-          description: err,
-        })
-      })
-      .finally(() => setLoading(false))
+    toast.loading("Đang đăng nhập...", {
+      duration: Infinity,
+    })
+    const { success, message } = await loginGuest(data)
+    toast.dismiss()
+    if (success) {
+      toast.success(message)
+      setTimeout(() => {
+        window.location.href = ROUTE.BASE
+      }, 1000)
+    } else {
+      toast.error(message)
+    }
   }
 
   return (
@@ -86,8 +81,11 @@ const Page = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full" disabled={loading}>
-          {!loading ? "Đăng nhập" : "Đang đăng nhập..."}
+        <Button type="submit" className="w-full">
+          Đăng nhập
+        </Button>
+        <Button variant="outline" type="button" className="w-full" asChild>
+          <Link href={ROUTE.AUTH.SIGN_UP}>Đăng ký</Link>
         </Button>
       </form>
     </Form>

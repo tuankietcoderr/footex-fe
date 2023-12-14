@@ -16,6 +16,7 @@ import {
 } from "../ui/dropdown-menu"
 import { Menu } from "lucide-react"
 import { OwnerURL } from "@/lib/url"
+import ROUTE from "@/constants/route"
 interface INav {
   title: string
   href: string
@@ -25,15 +26,19 @@ const NavigationBar = () => {
   const staticNav: INav[] = [
     {
       title: "Trang chủ",
-      href: "/",
+      href: ROUTE.BASE,
     },
     {
       title: "Sân bóng",
-      href: "/san-bong",
+      href: ROUTE.SAN_BONG.INDEX,
     },
     {
       title: "Giải đấu",
-      href: "/giai-dau",
+      href: ROUTE.GIAI_DAU.INDEX,
+    },
+    {
+      title: "Chi nhánh",
+      href: ROUTE.CHI_NHANH.INDEX,
     },
   ]
 
@@ -81,83 +86,59 @@ const NavigationBar = () => {
                 </Link>
               </Button>
             </DropdownMenuItem>
-            {guest !== undefined ? (
-              <>
-                <DropdownMenuItem asChild>
-                  <div className="flex w-full flex-col gap-2">
-                    <Button asChild size={"sm"} className="w-full rounded-full px-8">
-                      <Link href={"/dang-nhap"} className="text-center">
-                        Đăng nhập
-                      </Link>
-                    </Button>
-                    <Button
-                      variant={"outline"}
-                      size={"sm"}
-                      className="w-full rounded-full px-8"
-                      asChild
-                    >
-                      <Link href={"/dang-ky"} className="text-center">
-                        Đăng ký
-                      </Link>
-                    </Button>
-                  </div>
-                </DropdownMenuItem>
-              </>
-            ) : (
-              <>
-                <DropdownMenuItem asChild>
-                  <Skeleton className="h-9 w-20" />
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Skeleton className="h-9 w-20" />
-                </DropdownMenuItem>
-              </>
-            )}
+            {
+              <DropdownMenuItem asChild>
+                <div className="flex w-full flex-col gap-2">
+                  <Button asChild size={"sm"} className="w-full rounded-full px-8">
+                    <Link href={"/dang-nhap"} className="text-center">
+                      Đăng nhập
+                    </Link>
+                  </Button>
+                  <Button
+                    variant={"outline"}
+                    size={"sm"}
+                    className="w-full rounded-full px-8"
+                    asChild
+                  >
+                    <Link href={"/dang-ky"} className="text-center">
+                      Đăng ký
+                    </Link>
+                  </Button>
+                </div>
+              </DropdownMenuItem>
+            }
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
       <div className="hidden items-center gap-2 md:flex">
         {staticNav.map((nav) => (
-          <Button key={nav.href} asChild variant={"link"}>
+          <Button key={nav.href} asChild variant={"link"} className="line-clamp-1 w-max">
             <Link
               href={nav.href}
-              className={`${isNavActive(nav.href) ? "underline" : ""} text-center font-semibold`}
+              className={`${
+                isNavActive(nav.href) ? "underline" : ""
+              } line-clamp-1 text-center font-semibold`}
             >
               {nav.title}
             </Link>
           </Button>
         ))}
       </div>
-      <div className={`items-center gap-2 ${guest ? "flex-row-reverse" : ""} hidden md:flex`}>
-        {guest !== undefined ? (
-          guest === null ? (
-            <>
-              <Button asChild size={"sm"} className="rounded-full px-8">
-                <Link href={"/dang-nhap"} className="text-center font-semibold">
-                  Đăng nhập
-                </Link>
-              </Button>
-              <Button variant={"outline"} size={"sm"} className="rounded-full px-8" asChild>
-                <Link href={"/dang-ky"} className="text-center font-semibold">
-                  Đăng ký
-                </Link>
-              </Button>
-            </>
-          ) : (
-            <AccountBadge />
-          )
-        ) : (
-          <>
-            <Skeleton className="h-9 w-20 rounded-full px-8" />
-            <Skeleton className="h-9 w-20 rounded-full px-8" />
-          </>
-        )}
+      <div className={`hidden items-center gap-2 md:flex`}>
         <Button variant={"link"} className="hidden md:block" asChild>
           <Link href={OwnerURL} className="text-center font-bold text-green-500 underline">
             Dành cho chủ sân bóng
           </Link>
         </Button>
-        {guest === undefined && <Skeleton className="h-10 w-10 rounded-full" />}
+        {guest === null ? (
+          <Button variant={"outline"} size={"sm"} className="w-max" asChild>
+            <Link href={"/dang-ky"} className="line-clamp-1 text-center">
+              Đăng ký
+            </Link>
+          </Button>
+        ) : (
+          <AccountBadge />
+        )}
       </div>
     </div>
   )

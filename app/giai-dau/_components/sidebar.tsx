@@ -14,6 +14,7 @@ import { useRef } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { tournamentStatuses } from "../_mock/sidebar.mock"
+import toast from "react-hot-toast"
 
 const formSchema = z.object({
   city: z.string(),
@@ -54,7 +55,9 @@ const Sidebar = () => {
   const onSearch = () => {
     const search = searchRef.current?.value
     if (!search) {
-      return
+      if (!search) {
+        return toast.error("Vui lòng nhập từ khóa tìm kiếm")
+      }
     }
     router.replace(ROUTE.GIAI_DAU.INDEX + "?" + new URLSearchParams({ keyword: search }).toString())
   }

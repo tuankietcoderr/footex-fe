@@ -11,7 +11,7 @@ import PrizeItem from "./prize-item"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import ROUTE from "@/constants/route"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Circle, Clock12, Clock7, Trophy, Users } from "lucide-react"
 
 const TournamentItem = (tournament: ITournament) => {
   const { name, _id, images = [], teams = [], startAt, endAt, prize, status } = tournament
@@ -19,55 +19,57 @@ const TournamentItem = (tournament: ITournament) => {
 
   return (
     <div className="overflow-hidden rounded-lg border border-border shadow-sm">
-      <Card className="border-none shadow-none">
-        <CardHeader className="grid place-items-center">
-          {images?.length > 0 ? (
-            <ServerImage
-              src={images[0]}
-              width={300}
-              height={300}
-              alt={name}
-              className="h-[10rem]  w-[10rem] rounded-full bg-slate-200 object-contain "
-            />
-          ) : (
-            <FootballGoalSemi fill="var(--primary)" className="fill-primary" />
-          )}
+      <Card className="flex flex-col justify-between border-none shadow-none">
+        <CardHeader className="grid place-items-center p-0">
+          <ServerImage
+            src={images[0]}
+            width={300}
+            height={300}
+            alt={name}
+            className="h-[10rem]  w-[10rem] rounded-full bg-slate-200 object-contain "
+          />
         </CardHeader>
-        <CardContent>
-          <div className="flex flex-col gap-2">
-            <p className="text-xl font-semibold">{name}</p>
-            <p className={cn("text-xs", colorizeTournamentStatus(status!))}>
+        <CardContent className="flex flex-1 flex-col justify-between gap-2">
+          <p className="text-xl font-semibold">{name}</p>
+          <div className="flex space-x-2">
+            <Circle size={16} />
+            <p className={cn("text-sm", colorizeTournamentStatus(status!))}>
               {vilizeTournamentStatus(status!)}
             </p>
-            <p>
+          </div>
+          <div className="flex space-x-2">
+            <Users size={16} />
+            <CardDescription>
               <b>{teams?.length ?? 0}</b> đội đã tham gia thi đấu
-            </p>
-            <p className="text-xs">
-              Diễn ra từ ngày{" "}
-              <span className="font-semibold">
-                {formatVietnameseDate(new Date(startAt), "dd/MM/yyyy")}
-              </span>{" "}
-              đến ngày{" "}
-              <span className="font-semibold">
-                {formatVietnameseDate(new Date(endAt), "dd/MM/yyyy")}
-              </span>
-            </p>
+            </CardDescription>
+          </div>
+          <div className="flex flex-1 space-x-2">
+            <Clock7 size={16} />
+            <CardDescription>
+              {formatVietnameseDate(new Date(startAt), "dd/MM/yyyy")}
+            </CardDescription>
+          </div>
+          <div className="flex space-x-2">
+            <Clock12 size={16} />
+            <CardDescription>{formatVietnameseDate(new Date(endAt), "dd/MM/yyyy")}</CardDescription>
+          </div>
+          <div className="flex space-x-2">
+            <Trophy size={16} />
+            <CardDescription>
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <span className="cursor-pointer font-semibold underline">{_prize?.name}</span>
+                </HoverCardTrigger>
+                <HoverCardContent>
+                  <div>
+                    <PrizeItem {..._prize} />
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+            </CardDescription>
           </div>
         </CardContent>
         <CardFooter className="flex-col items-start">
-          <CardDescription>
-            Giải thưởng:{" "}
-            <HoverCard>
-              <HoverCardTrigger asChild>
-                <span className="cursor-pointer font-semibold underline">{_prize?.name}</span>
-              </HoverCardTrigger>
-              <HoverCardContent>
-                <div>
-                  <PrizeItem {..._prize} />
-                </div>
-              </HoverCardContent>
-            </HoverCard>
-          </CardDescription>
           <Button
             variant={"link"}
             className="self-end transition-transform sm:hover:scale-105"

@@ -1,14 +1,13 @@
-import NavigationBar from "@/components/nav/navigation-bar"
-import "./globals.css"
-import type { Metadata } from "next"
-import { Inter, Lexend } from "next/font/google"
 import Footer from "@/components/footer"
-import AuthProvider from "./provider"
-import { Toaster } from "@/components/ui/toaster"
+import NavigationBar from "@/components/nav/navigation-bar"
 import { AuthModalProvider } from "@/context/AuthModalContext"
-import React from "react"
-import dynamic from "next/dynamic"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import type { Metadata } from "next"
+import { Lexend } from "next/font/google"
+import React from "react"
+import { Toaster } from "react-hot-toast"
+import "./globals.css"
+import AuthProvider from "./provider"
 
 const inter = Lexend({
   subsets: ["latin", "vietnamese"],
@@ -29,7 +28,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <AuthModalProvider>
             <main className="min-h-screen">{children}</main>
           </AuthModalProvider>
-          <Toaster />
+          <Toaster
+            position="bottom-center"
+            toastOptions={{
+              duration: 3000,
+            }}
+          />
           <Footer />
         </AuthProvider>
       </body>

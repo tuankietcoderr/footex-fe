@@ -1,9 +1,9 @@
 import { ParamsProps } from "@/utils/params"
 import React from "react"
-import FieldId from "./_components/field-id"
+import NearbyBranchFields from "./_components/nearby-branch-fields"
 
 const page = ({ params: { id } }: ParamsProps) => {
-  return <FieldId id={id} />
+  return null
 }
 
 export default page

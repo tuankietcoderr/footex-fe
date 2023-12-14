@@ -12,7 +12,6 @@ const getAllFields = async (queries: any) => {
     next: {
       tags: [CACHE_TAGS.FIELD.GET_ALL],
     },
-    cache: "no-store",
   })
   return data
 }
@@ -23,7 +22,7 @@ const getFieldById = async (id: string) => {
     next: {
       tags: [CACHE_TAGS.FIELD.GET_BY_ID],
     },
-    cache: "force-cache",
+    cache: "no-store",
   })
   return data
 }
@@ -43,7 +42,7 @@ const getFieldsByBranchAddress = async ({
     next: {
       tags: [CACHE_TAGS.FIELD.GET_BY_ADDRESS],
     },
-    cache: "force-cache",
+    cache: "no-store",
   })
   return data
 }

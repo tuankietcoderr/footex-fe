@@ -21,6 +21,11 @@ const ROUTE = {
     INDEX: "/chi-nhanh",
     ID: "/chi-nhanh/:id",
   },
+  AUTH: {
+    SIGN_IN: "/dang-nhap",
+    SIGN_UP: "/dang-ky",
+    FORGOT_PASSWORD: "/quen-mat-khau",
+  },
 }
 
 export default ROUTE

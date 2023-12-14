@@ -3,4 +3,5 @@ export interface FetchResponse<T extends any> {
   message: string
   success: boolean
   code: number
+  accessToken?: string
 }

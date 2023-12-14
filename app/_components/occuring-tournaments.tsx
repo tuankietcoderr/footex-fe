@@ -1,11 +1,29 @@
+import { getHappeningTournaments } from "@/actions/tournament-actions"
+import ITournament from "@/interface/ITournament"
 import React from "react"
+import TournamentItem from "../giai-dau/_components/tournament-item"
 
-const OccuringTournaments = () => {
+const OccuringTournaments = async () => {
+  const { data, code, message, success } = await getHappeningTournaments()
+  if (!success) {
+    return (
+      <div>
+        {code} + {message}
+      </div>
+    )
+  }
+  const tournaments = data as ITournament[]
   return (
-    <div>
-      <h2 className="mb-2 text-center text-2xl font-bold">Các giải đấu đang diễn ra</h2>
-      <div className="min-h-[20rem] rounded-lg border border-dashed"></div>
-    </div>
+    tournaments.length > 0 && (
+      <div>
+        <h2 className="mb-2 text-center text-2xl font-bold">Các giải đấu đang diễn ra</h2>
+        <div className="grid min-h-[20rem] grid-cols-4 gap-4">
+          {tournaments.map((tournament) => (
+            <TournamentItem {...tournament} key={tournament._id} />
+          ))}
+        </div>
+      </div>
+    )
   )
 }
 

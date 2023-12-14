@@ -7,10 +7,14 @@ type Props = {
 }
 
 const AllTournaments = async ({ searchParams }: Props) => {
-  const { data, success } = await getAllTournaments(searchParams)
+  const { data, success, code, message } = await getAllTournaments(searchParams)
   const tournaments = data ?? ([] as ITournament[])
   if (!success) {
-    return <div>Không có giải đấu nào</div>
+    return (
+      <div>
+        {code} + {message}
+      </div>
+    )
   }
   return (
     <div className="grid grid-cols-3 gap-4">

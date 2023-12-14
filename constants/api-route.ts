@@ -58,6 +58,7 @@ const API_ROUTE = {
   TOURNAMENT: {
     INDEX: "/tournament",
     ID: "/tournament/:id",
+    HAPPENING: "/tournament/happening",
     GUEST_JOINT: "/tournament/joint",
     TEAM: "/tournament/team/:id",
     JOIN: "/tournament/:id/join",
@@ -85,6 +86,7 @@ const API_ROUTE = {
   },
   RATE: {
     INDEX: "/rate",
+    OBJECT: `/rate/:objectType/:objectId`,
   },
 }
 

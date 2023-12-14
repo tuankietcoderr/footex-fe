@@ -8,16 +8,16 @@ const FETCH = async <T extends any>(
   // eslint-disable-next-line no-undef
   options?: RequestInit
 ): Promise<FetchResponse<T>> => {
+  const opts = {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      ...options?.headers,
+    },
+  }
   try {
-    const res = await fetch(`${API_ROUTE.BASE_URL}${url}`, {
-      headers: {
-        ...options?.headers,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(options?.body),
-      ...options,
-    })
+    const res = await fetch(`${API_ROUTE.BASE_URL}${url}`, opts)
     return {
       ...(await res.json()),
       code: res.status,

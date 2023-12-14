@@ -1,6 +1,5 @@
-import React from "react"
-import AllTournaments from "./_components/all-tournaments"
 import { ParamsProps } from "@/utils/params"
+import AllTournaments from "./_components/all-tournaments"
 import Sidebar from "./_components/sidebar"
 
 const page = ({ searchParams }: ParamsProps) => {

@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useRouter } from "next/navigation"
 import ROUTE from "@/constants/route"
+import toast from "react-hot-toast"
 
 const formSchema = z.object({
   city: z.string(),
@@ -55,7 +56,7 @@ const Sidebar = () => {
   const onSearch = () => {
     const search = searchRef.current?.value
     if (!search) {
-      return
+      return toast.error("Vui lòng nhập từ khóa tìm kiếm")
     }
     router.replace(ROUTE.SAN_BONG.INDEX + "?" + new URLSearchParams({ keyword: search }).toString())
   }

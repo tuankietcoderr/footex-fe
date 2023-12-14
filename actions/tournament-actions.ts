@@ -13,9 +13,18 @@ const getAllTournaments = async (queries?: any) => {
     next: {
       tags: [CACHE_TAGS.TOURNAMENT.GET_ALL],
     },
+  })
+  return data
+}
+
+const getHappeningTournaments = async () => {
+  const data = await FETCH<ITournament[]>(API_ROUTE.TOURNAMENT.HAPPENING, {
+    next: {
+      tags: [CACHE_TAGS.TOURNAMENT.GET_HAPPENING],
+    },
     cache: "no-store",
   })
   return data
 }
 
-export { getAllTournaments }
+export { getAllTournaments, getHappeningTournaments }

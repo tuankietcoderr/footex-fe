@@ -1,4 +1,5 @@
 "use client"
+import { registerGuest } from "@/actions/auth-action"
 import Address from "@/components/address"
 import { Button } from "@/components/ui/button"
 import {
@@ -10,12 +11,14 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useToast } from "@/components/ui/use-toast"
+import ROUTE from "@/constants/route"
 import IGuest from "@/interface/IGuest"
-import useGuestStore from "@/store/useGuestStore"
 import { zodResolver } from "@hookform/resolvers/zod"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import toast from "react-hot-toast"
 import * as z from "zod"
 
 const formSchema = z
@@ -67,28 +70,17 @@ const Page = () => {
     },
   })
 
-  const { registerGuest } = useGuestStore()
-  const { toast } = useToast()
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    const processedData: IGuest = {
-      ...data,
-    }
-    setLoading(true)
-    registerGuest(processedData)
-      .then(() => {
-        toast({
-          title: "Đăng ký thành công",
-          description: "Chào mừng bạn đến với Footex",
-        })
-      })
-      .catch((err) => {
-        toast({
-          title: "Đăng ký thất bại",
-          description: err,
-        })
-      })
-      .finally(() => setLoading(false))
+    toast.promise(registerGuest(data), {
+      loading: "Đang đăng ký",
+      success: () => {
+        router.replace("/")
+        return "Đăng ký thành công"
+      },
+      error: "Đăng ký thất bại",
+    })
   }
 
   return (
@@ -167,6 +159,9 @@ const Page = () => {
 
         <Button type="submit" className="w-full" disabled={loading}>
           {!loading ? "Đăng ký" : "Đang đăng ký..."}
+        </Button>
+        <Button variant="outline" type="button" className="w-full" asChild>
+          <Link href={ROUTE.AUTH.SIGN_IN}>Đăng nhập</Link>
         </Button>
       </form>
     </Form>

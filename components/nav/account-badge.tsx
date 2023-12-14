@@ -11,9 +11,14 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
 import Link from "next/link"
+import { logoutGuest } from "@/actions/auth-action"
 
 const AccountBadge = () => {
-  const { guest, logout } = useGuestStore()
+  const { guest } = useGuestStore()
+  const logout = () => {
+    logoutGuest()
+    window.location.href = "/"
+  }
 
   return (
     <DropdownMenu>

@@ -7,10 +7,14 @@ type Props = {
 }
 
 const AllFields = async ({ searchParams }: Props) => {
-  const { data, success } = await getAllFields(searchParams)
+  const { data, success, code, message } = await getAllFields(searchParams)
   const fields = data ?? ([] as IField[])
   if (!success) {
-    return <div>Không có sân bóng nào</div>
+    return (
+      <div>
+        {code} + {message}
+      </div>
+    )
   }
   return (
     <div className="grid grid-cols-3 gap-4">

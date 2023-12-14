@@ -1,4 +1,5 @@
 "use client"
+import { OwnerURL } from "@/lib/url"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
@@ -21,13 +22,13 @@ const Footer = () => {
             <h3 className="font-bold text-primary-foreground">Dành cho chủ sân</h3>
             <ul className="mt-4">
               <li className="text-primary-foreground">
-                <Link href={"/dang-ky"}>Đăng ký</Link>
+                <Link href={OwnerURL.concat("/dang-ky")}>Đăng ký</Link>
               </li>
               <li className="text-primary-foreground">
-                <Link href={"/dang-nhap"}>Đăng nhập</Link>
+                <Link href={OwnerURL.concat("/dang-nhap")}>Đăng nhập</Link>
               </li>
               <li className="text-primary-foreground">
-                <Link href={"/chu-san-bong"}>Quản lý sân bóng</Link>
+                <Link href={OwnerURL.concat("/dashboard")}>Quản lý sân bóng</Link>
               </li>
             </ul>
           </div>
