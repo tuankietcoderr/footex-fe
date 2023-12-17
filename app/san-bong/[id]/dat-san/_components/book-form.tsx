@@ -1,28 +1,27 @@
 "use client"
 import { bookField } from "@/actions/field-booked-queue-actions"
 import BigCalendar from "@/components/big-calendar"
+import BookedItem from "@/components/item/booked-item"
 import { Button } from "@/components/ui/button"
 import IFieldBookedQueue, { EFieldBookedQueueStatus } from "@/interface/IFieldBookedQueue"
 import IGuest from "@/interface/IGuest"
 import { cn } from "@/lib/utils"
-import useGuestStore from "@/store/useGuestStore"
 import { colorizeFieldBookedQueueStatus, vilizeFieldBookedQueueStatus } from "@/utils/status"
 import { Info } from "lucide-react"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useState } from "react"
 import { Event, SlotInfo } from "react-big-calendar"
 import toast from "react-hot-toast"
-import BookedItem from "./booked-item"
 
 type Props = {
   bookedFields: IFieldBookedQueue[]
   fieldId: string
+  guest: IGuest
 }
 
-const BookForm = ({ bookedFields, fieldId }: Props) => {
-  const { guest } = useGuestStore()
-
+const BookForm = ({ bookedFields, fieldId, guest }: Props) => {
   const router = useRouter()
+  const pathname = usePathname()
 
   const events: Event[] = bookedFields.map((field) => ({
     start: new Date(field.startAt),
@@ -35,6 +34,7 @@ const BookForm = ({ bookedFields, fieldId }: Props) => {
 
   const onSelectSlot = (slotInfo: SlotInfo) => {
     const { start, end } = slotInfo
+    if (start < new Date()) return toast.error("Không thể đặt sân vào quá khứ")
     const startHour = start.getHours()
     const endHour = end.getHours()
     if (endHour - startHour > 3) {
@@ -63,7 +63,6 @@ const BookForm = ({ bookedFields, fieldId }: Props) => {
   const onBook = async () => {
     if (!event) return
     const data: IFieldBookedQueue = {
-      bookedBy: guest?._id as string,
       startAt: event?.start!,
       endAt: event?.end!,
       field: fieldId,
@@ -102,7 +101,7 @@ const BookForm = ({ bookedFields, fieldId }: Props) => {
         step={60}
         components={{
           week: {
-            event: ({ event }) => <BookedItem event={event} />,
+            event: ({ event }) => <BookedItem event={event} guest={guest} />,
           },
         }}
       />
@@ -111,7 +110,12 @@ const BookForm = ({ bookedFields, fieldId }: Props) => {
           <Info size={16} />
           <p className="text-sm">Những khung giờ bạn đã đặt sẽ có viền đậm hơn.</p>
         </div>
-        <Button size="sm" onClick={() => router.back()} variant={"ghost"} className="self-end">
+        <Button
+          size="sm"
+          onClick={() => router.replace(pathname.replace("/dat-san", ""))}
+          variant={"ghost"}
+          className="self-end"
+        >
           Hủy
         </Button>
         <Button

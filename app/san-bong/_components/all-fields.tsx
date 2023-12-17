@@ -1,6 +1,6 @@
 import IField from "@/interface/IField"
-import FieldItem from "./field-item"
 import { getAllFields } from "@/actions/field-actions"
+import FieldItem from "@/components/item/field-item"
 
 type Props = {
   searchParams?: any

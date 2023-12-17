@@ -12,6 +12,7 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/
 import { useFormContext } from "react-hook-form"
 import IOwner from "@/interface/IOwner"
 import { Input } from "../ui/input"
+import IAddress from "@/interface/IAddress"
 
 type TAddress = {
   name: string
@@ -34,6 +35,7 @@ type Props = {
 }
 
 const Address = ({ showHouseNumber = false, showStreet = false }: Props) => {
+  const form = useFormContext<IOwner>()
   const [city, setCity] = useState<TProvince[]>([])
   const [cityLoading, setCityLoading] = useState(false)
 
@@ -85,8 +87,6 @@ const Address = ({ showHouseNumber = false, showStreet = false }: Props) => {
     }
   }
 
-  const form = useFormContext<IOwner>()
-
   return (
     <>
       <FormField
@@ -111,7 +111,7 @@ const Address = ({ showHouseNumber = false, showStreet = false }: Props) => {
                   <SelectValue placeholder="Chọn tỉnh/thành phố" />
                 </SelectTrigger>
               </FormControl>
-              <SelectContent className="max-h-[300px] overflow-auto">
+              <SelectContent className="max-h-[300px] overflow-auto" defaultValue={field.value}>
                 {city.length > 0 &&
                   city.map((item: any) => (
                     <SelectItem value={item.name} key={item.codename}>
@@ -145,7 +145,7 @@ const Address = ({ showHouseNumber = false, showStreet = false }: Props) => {
                     <SelectValue placeholder="Chọn quận/huyện" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="max-h-[300px] overflow-auto">
+                <SelectContent className="max-h-[300px] overflow-auto" defaultValue={field.value}>
                   {district.length > 0 &&
                     district.map((item: any) => (
                       <SelectItem value={item.name} key={item.codename}>
@@ -173,7 +173,7 @@ const Address = ({ showHouseNumber = false, showStreet = false }: Props) => {
                     <SelectValue placeholder="Chọn phường/xã" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="max-h-[300px] overflow-auto">
+                <SelectContent className="max-h-[300px] overflow-auto" defaultValue={field.value}>
                   {ward.length > 0 &&
                     ward.map((item: any) => (
                       <SelectItem value={item.name} key={item.codename}>

@@ -1,17 +1,19 @@
 import ITeam from "./ITeam"
-import IUser from "./IOwner"
+import IGuest from "./IGuest"
 
 export enum EInvitementStatus {
-  PENDING = "PENDING",
-  ACCEPTED = "ACCEPTED",
-  REJECTED = "REJECTED",
+  PENDING = "pending",
+  APPROVED = "approved",
+  DECLINED = "declined",
+  DELETED = "deleted",
 }
 
 export default interface IInvitement {
   _id?: string
-  title: string
-  owner_title: string
-  team: string | ITeam
-  user: string | IUser
-  status: EInvitementStatus
+  from?: string | IGuest
+  to?: string | IGuest
+  status?: EInvitementStatus
+  team?: string | ITeam
+  isJoinRequest?: boolean
+  createdAt?: string
 }

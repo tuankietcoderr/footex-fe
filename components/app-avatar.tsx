@@ -14,7 +14,7 @@ type Props = {
 const AppAvatar = ({ alt, src, fallback = "FT", className }: Props) => {
   return (
     <Avatar className={cn("h-8 w-8 md:h-10 md:w-10", className)} suppressHydrationWarning>
-      <AvatarImage src={src} alt={alt} />
+      <AvatarImage src={src} alt={alt} className="object-cover" />
       <AvatarFallback suppressHydrationWarning className="bg-primary text-primary-foreground">
         {fallback}
       </AvatarFallback>

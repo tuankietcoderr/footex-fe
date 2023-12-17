@@ -1,12 +1,8 @@
 import { getFieldsByBranchAddress } from "@/actions/field-actions"
+import FieldItem from "@/components/item/field-item"
 import { Separator } from "@/components/ui/separator"
-import ROUTE from "@/constants/route"
 import IAddress from "@/interface/IAddress"
 import IField from "@/interface/IField"
-import { toDot } from "@/lib/converter"
-import Link from "next/link"
-import React from "react"
-import FieldItem from "../../_components/field-item"
 
 type Props = {
   branchId: string

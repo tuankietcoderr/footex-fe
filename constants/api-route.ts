@@ -29,8 +29,11 @@ const API_ROUTE = {
     SIGN_UP: "/guest/signup",
     VERIFY_EMAIL: "/guest/verify-email",
     SEND_VERIFY_EMAIL: "/guest/send-verify-email",
-    FORGOT_PASSWORD: "/guest/forgot-password",
+    FORGOT_PASSWORD: "/guest/password/forgot",
+    CHANGE_PASSWORD: "/guest/password/change",
     PHONE_NUMBER: "/guest/phone-number/:phone",
+    AUTHORIZE: "/guest/authorize",
+    ID: "/guest/:id",
   },
   OWNER: {
     INDEX: "/owner",
@@ -44,16 +47,19 @@ const API_ROUTE = {
     INDEX: "/team",
     ID: "/team/:id",
     CAPTAIN: "/team/captain",
-    GUEST: "/team/guest",
+    GUEST: "/team/guest/:id",
     LEAVE: "/team/:id/leave",
     KICK: "/team/:id/kick",
   },
   INVITEMENT: {
     INDEX: "/invitement",
     ID: "/invitement/:id",
-    STATUS: "/invitement/status/:id",
+    STATUS: "/invitement/:id/status",
     GUEST: "/invitement/guest",
-    TEAM: "/invitement/team",
+    TEAM: "/invitement/team/:id",
+    TEAM_REQUEST: "/invitement/team/:id/request",
+    REQUEST: "/invitement/request",
+    REQUEST_ID: "/invitement/request/:id",
   },
   TOURNAMENT: {
     INDEX: "/tournament",
@@ -87,6 +93,9 @@ const API_ROUTE = {
   RATE: {
     INDEX: "/rate",
     OBJECT: `/rate/:objectType/:objectId`,
+  },
+  REPORT: {
+    INDEX: "/report",
   },
 }
 

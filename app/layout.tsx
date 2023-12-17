@@ -1,16 +1,17 @@
 import Footer from "@/components/footer"
 import NavigationBar from "@/components/nav/navigation-bar"
-import { AuthModalProvider } from "@/context/AuthModalContext"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+// import { SpeedInsights } from "@vercel/speed-insights/next"
 import type { Metadata } from "next"
 import { Lexend } from "next/font/google"
 import React from "react"
 import { Toaster } from "react-hot-toast"
 import "./globals.css"
-import AuthProvider from "./provider"
 
 const inter = Lexend({
   subsets: ["latin", "vietnamese"],
+  preload: true,
+  adjustFontFallback: true,
+  fallback: ["Segoe UI", "Tahoma", "Geneva", "Verdana", "sans-serif"],
 })
 
 export const metadata: Metadata = {
@@ -22,20 +23,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <body className={`${inter.className}`}>
-        <SpeedInsights />
-        <AuthProvider>
-          <NavigationBar />
-          <AuthModalProvider>
-            <main className="min-h-screen">{children}</main>
-          </AuthModalProvider>
-          <Toaster
-            position="bottom-center"
-            toastOptions={{
-              duration: 3000,
-            }}
-          />
-          <Footer />
-        </AuthProvider>
+        {/* <SpeedInsights /> */}
+        <NavigationBar />
+        <main className="min-h-screen">{children}</main>
+        <Toaster
+          position="bottom-center"
+          toastOptions={{
+            duration: 3000,
+          }}
+        />
+        <Footer />
       </body>
     </html>
   )

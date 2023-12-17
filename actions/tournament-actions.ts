@@ -13,6 +13,7 @@ const getAllTournaments = async (queries?: any) => {
     next: {
       tags: [CACHE_TAGS.TOURNAMENT.GET_ALL],
     },
+    cache: "no-store",
   })
   return data
 }
@@ -27,4 +28,16 @@ const getHappeningTournaments = async () => {
   return data
 }
 
-export { getAllTournaments, getHappeningTournaments }
+const getTournamentById = async (id: string) => {
+  const data = await FETCH<ITournament>(API_ROUTE.TOURNAMENT.ID.replace(":id", id), {
+    next: {
+      tags: [CACHE_TAGS.TOURNAMENT.GET_BY_ID],
+    },
+    cache: "no-store",
+  })
+  return data
+}
+
+const getTournamentMatches = async (id: string) => {}
+
+export { getAllTournaments, getHappeningTournaments, getTournamentById }

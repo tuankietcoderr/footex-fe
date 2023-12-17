@@ -1,17 +1,14 @@
 import { getFieldById } from "@/actions/field-actions"
-import IBranch from "@/interface/IBranch"
+import { Separator } from "@/components/ui/separator"
 import IField from "@/interface/IField"
-import { ParamsProps } from "@/utils/params"
-import React, { PropsWithChildren } from "react"
+import { LayoutParamsProps, ParamsProps } from "@/utils/params"
 import FieldMainInfo from "./_components/field-main-info"
 import NearbyBranchFields from "./_components/nearby-branch-fields"
-import { Separator } from "@/components/ui/separator"
+import IBranch from "@/interface/IBranch"
 import Rating from "@/components/rating"
 import { ERate } from "@/interface/IRate"
 
-type Props = ParamsProps & PropsWithChildren
-
-const layout = async ({ children, params: { id } }: Props) => {
+const layout = async ({ children, params: { id } }: LayoutParamsProps) => {
   const { success, data, code, message } = await getFieldById(id)
   if (!success) {
     return (
@@ -32,7 +29,7 @@ const layout = async ({ children, params: { id } }: Props) => {
         <p className="mt-2 whitespace-pre-wrap">{field.description}</p>
       </div>
       <Rating objectId={id} objectType={ERate.FIELD} />
-      <NearbyBranchFields branchId={branch?._id || ""} {...branch} fieldId={id} />
+      <NearbyBranchFields branchId={branch?._id!} fieldId={field?._id!} {...branch} />
     </div>
   )
 }

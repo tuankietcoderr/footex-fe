@@ -1,6 +1,6 @@
 import { getAllTournaments } from "@/actions/tournament-actions"
+import TournamentItem from "@/components/item/tournament-item"
 import ITournament from "@/interface/ITournament"
-import TournamentItem from "./tournament-item"
 
 type Props = {
   searchParams?: any

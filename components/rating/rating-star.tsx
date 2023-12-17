@@ -1,5 +1,5 @@
 "use client"
-import React from "react"
+import React, { useEffect } from "react"
 import { Rating } from "react-custom-rating-component"
 
 interface RatingProps {

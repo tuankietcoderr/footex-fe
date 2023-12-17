@@ -1,5 +1,5 @@
 "use client"
-import { loginGuest } from "@/actions/auth-action"
+import { loginGuest } from "@/actions/auth-actions"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -10,9 +10,11 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { COMMON } from "@/constants/common"
 import ROUTE from "@/constants/route"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import * as z from "zod"
@@ -31,6 +33,10 @@ const Page = () => {
     },
   })
 
+  const searchParams = useSearchParams()
+  const redirectUrl = searchParams.get(COMMON.REDIRECT)
+  const router = useRouter()
+
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     toast.loading("Đang đăng nhập...", {
       duration: Infinity,
@@ -39,9 +45,7 @@ const Page = () => {
     toast.dismiss()
     if (success) {
       toast.success(message)
-      setTimeout(() => {
-        window.location.href = ROUTE.BASE
-      }, 1000)
+      router.replace(redirectUrl || ROUTE.BASE)
     } else {
       toast.error(message)
     }

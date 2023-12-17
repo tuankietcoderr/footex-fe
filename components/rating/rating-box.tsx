@@ -1,21 +1,22 @@
 "use client"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import AppAvatar from "../app-avatar"
 import RatingStar from "./rating-star"
 import { Textarea } from "../ui/textarea"
 import { ERate } from "@/interface/IRate"
-import useGuestStore from "@/store/useGuestStore"
 import toast from "react-hot-toast"
-import { createRate } from "@/actions/rate-action"
 import { Button } from "../ui/button"
 import { Form, FormControl, FormField, FormItem, FormMessage } from "../ui/form"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { createRate } from "@/actions/rate-actions"
+import IGuest from "@/interface/IGuest"
 
 type Props = {
   objectId: string
   objectType: ERate
+  guest: IGuest
 }
 
 const formSchema = z.object({
@@ -23,8 +24,7 @@ const formSchema = z.object({
   rateValue: z.number(),
 })
 
-const RatingBox = ({ objectId, objectType }: Props) => {
-  const { guest } = useGuestStore()
+const RatingBox = ({ objectId, objectType, guest }: Props) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,7 +32,9 @@ const RatingBox = ({ objectId, objectType }: Props) => {
       rateValue: 5,
     },
   })
-  const { getValues, setValue } = form
+  const { setValue } = form
+  const [isFocused, setIsFocused] = useState(false)
+
   const onSend = async (data: z.infer<typeof formSchema>) => {
     const sendData = {
       description: data.description,
@@ -49,10 +51,20 @@ const RatingBox = ({ objectId, objectType }: Props) => {
     if (success) {
       toast.success(message)
       form.reset()
+      setIsFocused(false)
     } else {
       toast.error(message)
     }
   }
+
+  useEffect(() => {
+    if (!isFocused) {
+      form.reset({
+        description: "",
+        rateValue: 5,
+      })
+    }
+  }, [isFocused])
 
   return (
     <div className="mt-2 flex space-x-2">
@@ -63,35 +75,43 @@ const RatingBox = ({ objectId, objectType }: Props) => {
       />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSend)} className="flex flex-1 flex-col space-y-2">
-          <FormField
-            control={form.control}
-            name="rateValue"
-            render={() => (
-              <FormItem>
-                <FormControl>
-                  <RatingStar defaultValue={5} onChange={(v) => setValue("rateValue", v)} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
+          {isFocused && (
+            <FormField
+              control={form.control}
+              name="rateValue"
+              render={() => (
+                <FormItem>
+                  <FormControl>
+                    <RatingStar defaultValue={5} onChange={(v) => setValue("rateValue", v)} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          )}
           <FormField
             name="description"
             control={form.control}
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Textarea placeholder="Nhập đánh giá của bạn..." {...field} />
+                  <Textarea
+                    onFocus={() => setIsFocused(true)}
+                    placeholder="Nhập đánh giá của bạn..."
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <div className="space-x-2 self-end">
-            <Button variant={"ghost"} type="button">
-              Hủy
-            </Button>
-            <Button type="submit">Gửi đánh giá</Button>
-          </div>
+          {isFocused && (
+            <div className="space-x-2 self-end">
+              <Button variant={"ghost"} type="button" onClick={() => setIsFocused(false)}>
+                Hủy
+              </Button>
+              <Button type="submit">Gửi đánh giá</Button>
+            </div>
+          )}
         </form>
       </Form>
     </div>

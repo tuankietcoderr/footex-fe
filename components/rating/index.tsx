@@ -1,8 +1,11 @@
-import { getObjectRates } from "@/actions/rate-action"
-import { Separator } from "@/components/ui/separator"
+import { getObjectRates } from "@/actions/rate-actions"
 import IRate, { ERate } from "@/interface/IRate"
 import RatingItem from "./rating-item"
 import RatingBox from "./rating-box"
+import AvgRating from "./avg-rating"
+import AllRatings from "./all-ratings"
+import IGuest from "@/interface/IGuest"
+import { getSession } from "@/services/auth/cookie-session"
 
 type Props = {
   objectType: ERate
@@ -11,6 +14,10 @@ type Props = {
 
 const Rating = async ({ objectType, objectId }: Props) => {
   const { data, success, code, message } = await getObjectRates(objectType, objectId)
+  const {
+    isLogin: authorizeStatus,
+    session: { guest },
+  } = await getSession()
   if (!success) {
     return (
       <div>
@@ -23,17 +30,12 @@ const Rating = async ({ objectType, objectId }: Props) => {
     <div>
       <div className="rounded-md border border-border p-4 shadow-sm">
         <h4 className="font-semibold">Đánh giá</h4>
-        <Separator />
-        <RatingBox objectId={objectId} objectType={objectType} />
-        {rates.length > 0 ? (
-          <div className="mt-2 flex flex-col space-y-2">
-            {rates.map((rate) => (
-              <RatingItem {...rate} key={rate?._id} />
-            ))}
-          </div>
-        ) : (
-          <p className="mt-2 text-sm text-muted-foreground">Không có đánh giá nào</p>
+        <AvgRating rates={rates} />
+
+        {authorizeStatus && (
+          <RatingBox objectId={objectId} objectType={objectType} guest={guest!} />
         )}
+        <AllRatings rates={rates} />
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
-"use client"
-import React, { useState } from "react"
+"use server"
+import IGuest from "@/interface/IGuest"
+import Link from "next/link"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
-import useGuestStore from "@/store/useGuestStore"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,39 +10,35 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
-import Link from "next/link"
-import { logoutGuest } from "@/actions/auth-action"
+import LogoutButton from "./logout"
+import ROUTE from "@/constants/route"
+import { getSession } from "@/services/auth/cookie-session"
+import AppAvatar from "../app-avatar"
 
-const AccountBadge = () => {
-  const { guest } = useGuestStore()
-  const logout = () => {
-    logoutGuest()
-    window.location.href = "/"
-  }
+const AccountBadge = async () => {
+  const {
+    isLogin,
+    session: { guest },
+  } = await getSession()
+
+  if (!isLogin) return null
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Avatar className="h-8 w-8 md:h-10 md:w-10">
-          <AvatarImage src={guest?.avatar} alt={guest?.name} />
-          <AvatarFallback className="bg-primary text-primary-foreground">
-            {guest?.name?.substring(0, 2) || "GE"}
-          </AvatarFallback>
-        </Avatar>
+        <AppAvatar src={guest?.avatar!} alt={guest?.name!} className="h-8 w-8 md:h-10 md:w-10" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="z-[101] -translate-x-8">
         <DropdownMenuLabel>{guest?.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href={"/ho-so"}>Hồ sơ</Link>
+          <Link href={ROUTE.HO_SO.ID.replace(":id", guest?._id || "")}>Hồ sơ</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={"/doi-bong"}>Đội bóng</Link>
+          <Link href={ROUTE.DOI_BONG.MANAGE.JOINED}>Đội bóng của tôi</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={logout} className="text-destructive">
-          Đăng xuất
-        </DropdownMenuItem>
+        <LogoutButton />
       </DropdownMenuContent>
     </DropdownMenu>
   )

@@ -1,7 +1,7 @@
-import { getAllBranches } from "@/actions/branch-action"
+import { getAllBranches } from "@/actions/branch-actions"
+import BranchItem from "@/components/item/branch-item"
 import IBranch from "@/interface/IBranch"
 import { ParamsProps } from "@/utils/params"
-import BranchItem from "./branch-item"
 
 const AllBranches = async ({ searchParams }: ParamsProps) => {
   const { data, success, code, message } = await getAllBranches(searchParams)

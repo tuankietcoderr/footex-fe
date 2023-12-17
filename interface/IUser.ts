@@ -6,9 +6,9 @@ export default interface IUser {
   avatar?: string
   phoneNumber: string
   isEmailVerified?: boolean
-  houseNumber?: string
-  street?: string
-  ward?: string
-  district?: string
-  city?: string
+  houseNumber: string
+  street: string
+  ward: string
+  district: string
+  city: string
 }

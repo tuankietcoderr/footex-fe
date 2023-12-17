@@ -1,7 +1,7 @@
 import { getHappeningTournaments } from "@/actions/tournament-actions"
+import TournamentItem from "@/components/item/tournament-item"
 import ITournament from "@/interface/ITournament"
 import React from "react"
-import TournamentItem from "../giai-dau/_components/tournament-item"
 
 const OccuringTournaments = async () => {
   const { data, code, message, success } = await getHappeningTournaments()

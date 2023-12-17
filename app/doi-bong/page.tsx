@@ -1,7 +1,17 @@
 import React from "react"
+import Sidebar from "./_components/sidebar"
+import AllTeams from "./_components/all-teams"
+import { ParamsProps } from "@/utils/params"
 
-const page = () => {
-  return <div>page</div>
+const page = (props: ParamsProps) => {
+  return (
+    <div className="grid grid-cols-[16rem_auto] space-x-4">
+      <Sidebar />
+      <div>
+        <AllTeams {...props} />
+      </div>
+    </div>
+  )
 }
 
 export default page

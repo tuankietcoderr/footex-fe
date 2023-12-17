@@ -1,5 +1,5 @@
 "use client"
-import { registerGuest } from "@/actions/auth-action"
+import { registerGuest } from "@/actions/auth-actions"
 import Address from "@/components/address"
 import { Button } from "@/components/ui/button"
 import {
@@ -11,12 +11,11 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { COMMON } from "@/constants/common"
 import ROUTE from "@/constants/route"
-import IGuest from "@/interface/IGuest"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import * as z from "zod"
@@ -70,17 +69,22 @@ const Page = () => {
     },
   })
 
-  const [loading, setLoading] = useState(false)
+  const searchParams = useSearchParams()
+  const redirectUrl = searchParams.get(COMMON.REDIRECT)
   const router = useRouter()
+
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    toast.promise(registerGuest(data), {
-      loading: "Đang đăng ký",
-      success: () => {
-        router.replace("/")
-        return "Đăng ký thành công"
-      },
-      error: "Đăng ký thất bại",
+    toast.loading("Đang đăng ký...", {
+      duration: Infinity,
     })
+    const { success, message } = await registerGuest(data)
+    toast.dismiss()
+    if (success) {
+      toast.success(message)
+      router.replace(redirectUrl || ROUTE.BASE)
+    } else {
+      toast.error(message)
+    }
   }
 
   return (
@@ -157,8 +161,8 @@ const Page = () => {
           )}
         />
 
-        <Button type="submit" className="w-full" disabled={loading}>
-          {!loading ? "Đăng ký" : "Đang đăng ký..."}
+        <Button type="submit" className="w-full">
+          Đăng ký
         </Button>
         <Button variant="outline" type="button" className="w-full" asChild>
           <Link href={ROUTE.AUTH.SIGN_IN}>Đăng nhập</Link>

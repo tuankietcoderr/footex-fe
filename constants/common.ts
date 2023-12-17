@@ -1,3 +1,5 @@
 export const COMMON = {
   ACCESS_TOKEN: "FOOTEX_ACCESS_TOKEN",
+  REDIRECT: "redirect",
+  AUTH_SESSION: "FOOTEX_AUTH_SESSION",
 }
