@@ -10,7 +10,7 @@ const layout = async ({ children, params: { id } }: LayoutParamsProps) => {
     isLogin,
   } = await getSession()
   let guest = {} as IGuest
-  if (isLogin) {
+  if (isLogin && sessionGuest?._id === id) {
     guest = sessionGuest as IGuest
   } else {
     const { success, data, code, message } = await getGuestById(id)

@@ -13,7 +13,7 @@ const TeamItem = (team: ITeam) => {
   const _captain = captain as IGuest
   return (
     <div className="flex flex-col overflow-hidden rounded-lg border border-border shadow-sm">
-      <div className="">
+      <div className="grid place-items-center">
         <ServerImage
           src={logo ?? ""}
           width={400}
@@ -25,17 +25,17 @@ const TeamItem = (team: ITeam) => {
       <Card className="flex flex-1 flex-col justify-between border-none shadow-none">
         <CardContent className="flex flex-1 flex-col gap-2">
           {name && <p className="text-xl font-semibold">{name}</p>}
-          <div className="flex space-x-2">
+          <div className="flex gap-2">
             <MapPin size={16} />
             <CardDescription className="flex-1">{toAddress({ ..._captain })}</CardDescription>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex gap-2">
             <Users size={16} />
             <CardDescription>
               <span className="font-semibold">{members?.length || 0}</span> thành viên
             </CardDescription>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex gap-2">
             <Gamepad size={16} />
             <CardDescription>
               <span className="font-semibold">{jointTournaments?.length || 0}</span> giải đấu đã

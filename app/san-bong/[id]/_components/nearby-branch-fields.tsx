@@ -27,7 +27,7 @@ const NearbyBranchFields = async ({ fieldId, branchId, city, district, ward }: P
     <div className="rounded-md border border-border p-4 shadow-sm">
       <h4 className="font-semibold">Sân bóng gần đây</h4>
       <Separator />
-      <div className="mt-2 grid grid-cols-3 space-x-4">
+      <div className="mt-2 grid grid-cols-3 gap-4">
         {fields
           .filter((f) => f._id !== fieldId)
           .map((field) => (

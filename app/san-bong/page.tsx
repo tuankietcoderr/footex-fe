@@ -4,7 +4,7 @@ import { ParamsProps } from "@/utils/params"
 
 const page = (props: ParamsProps) => {
   return (
-    <div className="mx-[5%] mt-4 grid grid-cols-[16rem_auto] space-x-4">
+    <div className="mx-[5%] mt-4 grid grid-cols-[16rem_auto] gap-4">
       <Sidebar />
       <div>
         <AllFields searchParams={props.searchParams} />

@@ -6,9 +6,10 @@ import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import BackButton from "./_components/back-button"
-import { Info, Key } from "lucide-react"
+import { Info, Key, Mail } from "lucide-react"
 import EditPasswordForm from "./_components/edit-password-form"
 import { getSession } from "@/services/auth/cookie-session"
+import EditEmailForm from "./_components/edit-email-form"
 
 const page = async ({ params: { id }, searchParams }: ParamsProps) => {
   const {
@@ -20,6 +21,17 @@ const page = async ({ params: { id }, searchParams }: ParamsProps) => {
   }
 
   const tab = searchParams?.tab ?? "info"
+
+  const renderTab = () => {
+    switch (tab) {
+      case "info":
+        return <EditInfoForm {...guest} />
+      case "password":
+        return <EditPasswordForm />
+      case "email":
+        return <EditEmailForm email={guest?.email!} isVerified={guest.isEmailVerified} />
+    }
+  }
 
   return (
     <div className="flex min-h-[20rem] gap-2 rounded-md border bg-white p-4 shadow-sm">
@@ -45,13 +57,21 @@ const page = async ({ params: { id }, searchParams }: ParamsProps) => {
               Mật khẩu
             </Link>
           </Button>
+          <Button
+            variant={"ghost"}
+            asChild
+            className={cn("justify-start gap-2", tab === "email" && "bg-gray-100")}
+          >
+            <Link href={"?tab=email"} replace scroll={false}>
+              <Mail size={16} />
+              Email
+            </Link>
+          </Button>
         </div>
         <BackButton />
       </div>
       <Separator orientation="vertical" className="h-auto" />
-      <div className="flex-1">
-        {tab === "info" ? <EditInfoForm {...guest} /> : <EditPasswordForm />}
-      </div>
+      <div className="flex-1">{renderTab()}</div>
     </div>
   )
 }

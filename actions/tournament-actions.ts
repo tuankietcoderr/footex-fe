@@ -1,9 +1,10 @@
 "use server"
 
 import API_ROUTE from "@/constants/api-route"
-import FETCH from "@/api/fetch"
+import FETCH, { FETCH_WITH_TOKEN } from "@/api/fetch"
 import ITournament from "@/interface/ITournament"
 import CACHE_TAGS from "@/utils/cache-tag"
+import { revalidateTag } from "next/cache"
 
 const PATH = API_ROUTE.TOURNAMENT.INDEX
 
@@ -40,4 +41,26 @@ const getTournamentById = async (id: string) => {
 
 const getTournamentMatches = async (id: string) => {}
 
-export { getAllTournaments, getHappeningTournaments, getTournamentById }
+const joinTournament = async (tournamentId: string, teamId: string) => {
+  const res = await FETCH_WITH_TOKEN<ITournament>(
+    API_ROUTE.TOURNAMENT.JOIN.replace(":id", tournamentId),
+    {
+      method: "POSt",
+      body: JSON.stringify({ teamId }),
+    }
+  )
+  if (res.success) {
+    revalidateTag(CACHE_TAGS.TEAM.GET_BY_ID)
+    revalidateTag(CACHE_TAGS.TEAM.GET_BY_CAPTAIN)
+    revalidateTag(CACHE_TAGS.TEAM.GET_ALL)
+  }
+  return res
+}
+
+export {
+  getAllTournaments,
+  getHappeningTournaments,
+  getTournamentById,
+  joinTournament,
+  getTournamentMatches,
+}

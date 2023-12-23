@@ -74,7 +74,7 @@ const Sidebar = () => {
             }
           }}
         />
-        <div className="mt-2 grid grid-cols-2  items-center space-x-2">
+        <div className="mt-2 grid grid-cols-2 items-center  gap-2">
           <Button type="reset" onClick={onSearchReset} variant={"outline"} size={"sm"}>
             Đặt lại
           </Button>
@@ -90,7 +90,7 @@ const Sidebar = () => {
           <div className="flex flex-col space-y-2">
             <Address />
             <Separator />
-            <div className="grid grid-cols-2 space-x-2">
+            <div className="grid grid-cols-2 gap-2">
               <Button type="reset" onClick={onReset} variant={"outline"} size={"sm"}>
                 Đặt lại
               </Button>

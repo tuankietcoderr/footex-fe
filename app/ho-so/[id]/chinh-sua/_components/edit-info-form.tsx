@@ -20,9 +20,6 @@ import * as z from "zod"
 
 const formSchema = z.object({
   avatar: z.string().url({ message: "Avatar không hợp lệ" }),
-  email: z.string().email({
-    message: "Email không hợp lệ",
-  }),
   phoneNumber: z
     .string()
     .refine(
@@ -41,7 +38,6 @@ const EditInfoForm = (guest: IGuest) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
       phoneNumber: "",
       name: "",
     },
@@ -90,19 +86,6 @@ const EditInfoForm = (guest: IGuest) => {
               <FormLabel>Họ và tên</FormLabel>
               <FormControl>
                 <Input placeholder="Foot Văn Tex" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="footex@footex.com" type="email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -31,11 +31,7 @@ const BookedItem = ({ event: { title, resource }, guest }: Props) => {
       {resource?.bookedBy?._id === guest?._id &&
         resource.status === EFieldBookedQueueStatus.PENDING && (
           <HoverCardContent className="flex w-fit justify-end">
-            <Button
-              variant="destructive"
-              className="flex items-center space-x-2"
-              onClick={onRemove}
-            >
+            <Button variant="destructive" className="flex items-center gap-2" onClick={onRemove}>
               Hủy sân
             </Button>
           </HoverCardContent>

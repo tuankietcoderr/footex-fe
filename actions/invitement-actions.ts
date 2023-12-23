@@ -65,4 +65,42 @@ const updateInvitementStatus = async (id: string, status: EInvitementStatus) => 
   return res
 }
 
-export { requestToJoin, cancelRequest, getTeamRequests, updateInvitementStatus, getTeamInvitements }
+const deleteInvitement = async (id: string) => {
+  const res = await FETCH_WITH_TOKEN<IInvitement>(API_ROUTE.INVITEMENT.ID.replace(":id", id), {
+    method: "DELETE",
+  })
+  if (res.success) {
+    revalidateTag(CACHE_TAGS.TEAM.GET_BY_CAPTAIN)
+    revalidateTag(CACHE_TAGS.INVITEMENT.GET_TEAM_REQUEST)
+  }
+  return res
+}
+
+const inviteMember = async (data: IInvitement) => {
+  const res = await FETCH_WITH_TOKEN<IInvitement>(API_ROUTE.INVITEMENT.INDEX, {
+    method: "POST",
+    body: JSON.stringify(data),
+  })
+
+  if (res.success) {
+    revalidateTag(CACHE_TAGS.INVITEMENT.GET_BY_TEAM)
+  }
+
+  return res
+}
+
+const getGuestInvitements = async () => {
+  const res = await FETCH_WITH_TOKEN<IInvitement[]>(API_ROUTE.INVITEMENT.GUEST)
+  return res
+}
+
+export {
+  requestToJoin,
+  cancelRequest,
+  getTeamRequests,
+  updateInvitementStatus,
+  deleteInvitement,
+  getTeamInvitements,
+  inviteMember,
+  getGuestInvitements,
+}

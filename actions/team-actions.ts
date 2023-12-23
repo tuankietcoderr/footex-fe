@@ -4,6 +4,7 @@ import API_ROUTE from "@/constants/api-route"
 import FETCH, { FETCH_WITH_TOKEN } from "@/api/fetch"
 import ITeam from "@/interface/ITeam"
 import CACHE_TAGS from "@/utils/cache-tag"
+import { revalidateTag } from "next/cache"
 
 const getAllTeams = async (queries?: any) => {
   const urlWithQueries = API_ROUTE.TEAM.INDEX + "?" + new URLSearchParams(queries).toString()
@@ -50,6 +51,9 @@ const createTeam = async (data: ITeam) => {
     method: "POST",
     body: JSON.stringify(data),
   })
+  if (res.success) {
+    revalidateTag(CACHE_TAGS.TEAM.GET_BY_CAPTAIN)
+  }
   return res
 }
 
@@ -61,4 +65,29 @@ const updateTeam = async (id: string, data: ITeam) => {
   return res
 }
 
-export { getAllTeams, getGuestJointTeams, getTeamById, getCaptainTeams, createTeam, updateTeam }
+const kickMember = async (id: string, memberId: string) => {
+  const res = await FETCH_WITH_TOKEN<ITeam>(API_ROUTE.TEAM.KICK.replace(":id", id), {
+    method: "DELETE",
+    body: JSON.stringify({
+      member: memberId,
+    }),
+  })
+
+  if (res.success) {
+    revalidateTag(CACHE_TAGS.TEAM.GET_BY_ID)
+    revalidateTag(CACHE_TAGS.TEAM.GET_BY_CAPTAIN)
+    revalidateTag(CACHE_TAGS.TEAM.GET_GUEST_JOINT)
+  }
+
+  return res
+}
+
+export {
+  getAllTeams,
+  getGuestJointTeams,
+  getTeamById,
+  getCaptainTeams,
+  createTeam,
+  updateTeam,
+  kickMember,
+}

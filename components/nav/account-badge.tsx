@@ -35,7 +35,7 @@ const AccountBadge = async () => {
           <Link href={ROUTE.HO_SO.ID.replace(":id", guest?._id || "")}>Hồ sơ</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={ROUTE.DOI_BONG.MANAGE.JOINED}>Đội bóng của tôi</Link>
+          <Link href={ROUTE.DOI_BONG.MANAGE.JOINED.INDEX}>Đội bóng của tôi</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <LogoutButton />

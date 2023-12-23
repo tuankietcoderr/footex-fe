@@ -10,6 +10,7 @@ const ROUTE = {
     INDEX: "/giai-dau",
     ID: "/giai-dau/:id",
     JOIN: "/giai-dau/:id/tham-gia",
+    MATCH: "/giai-dau/:id/:matchId",
   },
   HO_SO: {
     INDEX: "/ho-so",
@@ -26,6 +27,7 @@ const ROUTE = {
       CREATED: {
         INDEX: "/doi-bong/quan-ly/da-tao",
         ID: "/doi-bong/quan-ly/da-tao/:id",
+        INFO: "/doi-bong/quan-ly/da-tao/:id/thong-tin",
         EDIT: "/doi-bong/quan-ly/da-tao/:id/chinh-sua",
         MEMBER: {
           INDEX: "/doi-bong/quan-ly/da-tao/:id/quan-ly-thanh-vien",
@@ -34,7 +36,12 @@ const ROUTE = {
         },
         DELETE: "/doi-bong/quan-ly/da-tao/:id/xoa",
       },
-      JOINED: "/doi-bong/quan-ly/da-tham-gia",
+      JOINED: {
+        INDEX: "/doi-bong/quan-ly/da-tham-gia",
+        ID: "/doi-bong/quan-ly/da-tham-gia/:id",
+        INFO: "/doi-bong/quan-ly/da-tham-gia/:id/thong-tin",
+        LEAVE: "/doi-bong/quan-ly/da-tham-gia/:id/roi-khoi",
+      },
       INVITEMENTS: "/doi-bong/quan-ly/loi-moi",
     },
     JOIN: "/doi-bong/:id/tham-gia",

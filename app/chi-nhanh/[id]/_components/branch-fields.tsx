@@ -13,7 +13,7 @@ const BranchFields = async ({ branchId: id }: { branchId: string }) => {
     <div className="rounded-md border border-border p-4 shadow-sm">
       <h4 className="font-semibold">Sân bóng của chi nhánh</h4>
       <Separator />
-      <div className="mt-2 grid grid-cols-4 space-x-4">
+      <div className="mt-2 grid grid-cols-4 gap-4">
         {fields.map((field) => (
           <FieldItem {...field} key={field._id} />
         ))}

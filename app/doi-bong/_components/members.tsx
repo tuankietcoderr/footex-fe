@@ -13,7 +13,7 @@ const Members = ({ members = [] }: Props) => {
       <h4 className="font-semibold">Thành viên</h4>
       <Separator />
       {members.length > 0 ? (
-        <div className="mt-2 grid grid-cols-4 space-x-4">
+        <div className="mt-2 grid grid-cols-4 gap-4">
           {members.map((guest) => (
             <GuestItem {...guest} key={guest._id} />
           ))}

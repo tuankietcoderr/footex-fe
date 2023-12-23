@@ -1,6 +1,5 @@
 import IGuest from "./IGuest"
 import IInvitement from "./IInvitement"
-import IUser from "./IOwner"
 import ITournament from "./ITournament"
 
 export enum ETeamStatus {

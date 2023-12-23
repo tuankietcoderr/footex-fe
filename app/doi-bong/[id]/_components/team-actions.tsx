@@ -26,7 +26,7 @@ const TeamActions = async (team: ITeam) => {
   const isMember = _members?.some(({ _id }) => _id === guest?._id)
   return (
     !isGuestTeam && (
-      <div className="flex space-x-2">
+      <div className="flex gap-2">
         <JoinButton isRequested={!!request} teamId={teamId!} isMember={isMember} />
         {!!request && <CancelButton requestId={request?._id!} />}
         <Button variant={"ghost"} asChild>

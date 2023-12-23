@@ -1,33 +1,49 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import ROUTE from "@/constants/route"
-import { cn } from "@/lib/utils"
-import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
-import React from "react"
-import Tabs from "./tabs"
 import { TabItem } from "../_types/tab"
-import { EInvitementStatus } from "@/interface/IInvitement"
+import Tabs from "./tabs"
 
 const Sidebar = () => {
   const { id } = useParams<{
     id: string
   }>()
+
+  const pathname = usePathname()
+
   const tabs: TabItem[] = [
     {
-      href: ROUTE.DOI_BONG.MANAGE.JOINED,
+      href: ROUTE.DOI_BONG.MANAGE.JOINED.INDEX,
       label: "Đội bóng đã tham gia",
+      childs: {
+        canShow: !!id && pathname.includes(ROUTE.DOI_BONG.MANAGE.JOINED.INDEX),
+        items: [
+          {
+            label: "Xem thông tin",
+            href: ROUTE.DOI_BONG.MANAGE.JOINED.INFO.replace(":id", id),
+          },
+          {
+            label: "Rời đội bóng",
+            href: ROUTE.DOI_BONG.MANAGE.JOINED.LEAVE.replace(":id", id),
+            className: "text-destructive hover:bg-destructive hover:text-white",
+          },
+        ],
+      },
     },
     {
       href: ROUTE.DOI_BONG.MANAGE.CREATED.INDEX,
       label: "Đội bóng đã tạo",
       childs: {
-        canShow: !!id,
+        canShow: !!id && pathname.includes(ROUTE.DOI_BONG.MANAGE.CREATED.INDEX),
         items: [
           {
+            label: "Xem thông tin",
+            href: ROUTE.DOI_BONG.MANAGE.CREATED.INFO.replace(":id", id),
+          },
+          {
             href: ROUTE.DOI_BONG.MANAGE.CREATED.EDIT.replace(":id", id),
-            label: "Thông tin chung",
+            label: "Chỉnh sửa thông tin",
           },
           {
             href: ROUTE.DOI_BONG.MANAGE.CREATED.MEMBER.INDEX.replace(":id", id),

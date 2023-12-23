@@ -25,6 +25,7 @@ const API_ROUTE = {
   },
   GUEST: {
     INDEX: "/guest",
+    EMAIL: "/guest/email",
     SIGN_IN: "/guest/signin",
     SIGN_UP: "/guest/signup",
     VERIFY_EMAIL: "/guest/verify-email",
@@ -34,6 +35,7 @@ const API_ROUTE = {
     PHONE_NUMBER: "/guest/phone-number/:phone",
     AUTHORIZE: "/guest/authorize",
     ID: "/guest/:id",
+    SEARCH_BY_EMAIL_OR_PHONE_NUMBER: "/guest/search/:emailOrPhoneNumber",
   },
   OWNER: {
     INDEX: "/owner",
@@ -72,6 +74,7 @@ const API_ROUTE = {
   },
   MATCH: {
     INDEX: "/match",
+    ID: "/match/:id",
   },
   MATCH_RESULT: {
     INDEX: "/match-result",

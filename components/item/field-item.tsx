@@ -26,23 +26,23 @@ const FieldItem = ({ name, _id, description, status, price, type, image, branch 
       <Card className="flex flex-1 flex-col justify-between border-none shadow-none">
         <CardContent className="flex flex-1 flex-col gap-2">
           {name && <p className="text-xl font-semibold">{name}</p>}
-          <div className="flex space-x-2">
+          <div className="flex gap-2">
             <Circle size={16} />
             <span className={cn(colorizeFieldStatus(status!), "text-sm")}>
               {vilizeFieldStatus(status!)}
             </span>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex gap-2">
             <Users size={16} />
             <CardDescription>
               Sân <b>{type}</b>
             </CardDescription>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex gap-2">
             <MapPin size={16} />
             <CardDescription className="flex-1">{toAddress({ ..._branch })}</CardDescription>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex gap-2">
             <CircleDollarSign size={16} />
             <CardDescription>
               <span className="font-semibold">{toDot(price ?? 0)}</span> VND/giờ

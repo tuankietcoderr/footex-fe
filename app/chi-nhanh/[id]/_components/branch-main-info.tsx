@@ -11,7 +11,7 @@ import BranchActions from "./branch-actions"
 const BranchMainInfo = (branch: IBranch) => {
   const { _id, name, closeAt, openAt, logo, phoneNumber } = branch
   return (
-    <div className="grid grid-cols-[18rem_auto] space-x-4">
+    <div className="grid grid-cols-[18rem_auto] gap-4">
       <div className="grid place-items-center rounded-md border shadow-sm">
         <ServerImage
           src={logo || ""}
@@ -24,7 +24,7 @@ const BranchMainInfo = (branch: IBranch) => {
       <div className="flex flex-col justify-between space-y-2 rounded-md border p-4 shadow-sm">
         <Link
           href={ROUTE.CHI_NHANH.ID.replace(":id", branch?._id || "")}
-          className="flex items-center space-x-2"
+          className="flex items-center gap-2"
         >
           <AppAvatar
             src={branch?.logo || ""}
@@ -35,15 +35,15 @@ const BranchMainInfo = (branch: IBranch) => {
         </Link>
         <h1 className="text-4xl font-bold">{name}</h1>
         <div className="space-y-1">
-          <div className="flex space-x-2">
+          <div className="flex gap-2">
             <MapPin size={16} />
             <CardDescription className="flex-1">{toAddress({ ...branch })}</CardDescription>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex gap-2">
             <Phone size={16} />
             <CardDescription>{phoneNumber}</CardDescription>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex gap-2">
             <AlarmClock size={16} />
             <CardDescription>
               {openAt}h - {closeAt}h

@@ -5,7 +5,6 @@ export enum EInvitementStatus {
   PENDING = "pending",
   APPROVED = "approved",
   DECLINED = "declined",
-  DELETED = "deleted",
 }
 
 export default interface IInvitement {

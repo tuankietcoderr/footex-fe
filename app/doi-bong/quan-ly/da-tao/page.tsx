@@ -16,7 +16,7 @@ const page = async () => {
   return (
     <div className="grid grid-cols-1 gap-4">
       {teams.map((team) => (
-        <ManageTeamItem key={team._id} {...team} />
+        <ManageTeamItem key={team._id} team={team} />
       ))}
     </div>
   )

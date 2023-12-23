@@ -15,7 +15,7 @@ const GuestMainInfo = async (guest: IGuest) => {
     session: { guest: currentGuest },
   } = await getSession()
   return (
-    <div className="grid grid-cols-[18rem_auto] space-x-4">
+    <div className="grid grid-cols-[18rem_auto] gap-4">
       <div className="grid place-items-center rounded-md border shadow-sm">
         <ServerImage
           src={avatar || ""}
@@ -25,21 +25,21 @@ const GuestMainInfo = async (guest: IGuest) => {
           className="max-h-[14rem] w-full object-cover p-2"
         />
       </div>
-      <div className="flex justify-between space-x-2 rounded-md border p-4 shadow-sm">
+      <div className="flex justify-between gap-2 rounded-md border p-4 shadow-sm">
         <div className="flex flex-col space-y-2">
           <h1 className="text-4xl font-bold">{name}</h1>
           <div className="space-y-1">
-            <div className="flex space-x-2">
+            <div className="flex gap-2">
               <MapPin size={16} />
               <CardDescription className="flex-1">{toAddress({ ...rest })}</CardDescription>
             </div>
-            <div className="flex space-x-2">
+            <div className="flex gap-2">
               <Phone size={16} />
               <CardDescription>
                 <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
               </CardDescription>
             </div>
-            <div className="flex space-x-2">
+            <div className="flex gap-2">
               <Mail size={16} />
               <CardDescription>
                 <a href={`mailto:${email}`}>{email}</a>

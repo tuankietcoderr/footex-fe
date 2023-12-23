@@ -98,7 +98,7 @@ const ReportForm = ({ objectId, objectType }: Props) => {
             </FormItem>
           )}
         />
-        <div className="flex space-x-2 self-end">
+        <div className="flex gap-2 self-end">
           <Button onClick={onCancel} variant={"ghost"} type="button">
             Hủy
           </Button>

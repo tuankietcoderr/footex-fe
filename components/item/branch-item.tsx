@@ -23,15 +23,15 @@ const BranchItem = (branch: IBranch) => {
       <Card className="flex flex-1 flex-col justify-between border-none shadow-none">
         <CardContent className="flex flex-1 flex-col gap-2">
           {name && <p className="text-xl font-semibold">{name}</p>}
-          <div className="flex space-x-2">
+          <div className="flex gap-2">
             <MapPin size={16} />
             <CardDescription className="flex-1">{toAddress({ ...branch })}</CardDescription>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex gap-2">
             <Phone size={16} />
             <CardDescription>{phoneNumber}</CardDescription>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex gap-2">
             <AlarmClock size={16} />
             <CardDescription>
               {openAt}h - {closeAt}h

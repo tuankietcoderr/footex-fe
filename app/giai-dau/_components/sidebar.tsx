@@ -80,7 +80,7 @@ const Sidebar = () => {
             }
           }}
         />
-        <div className="mt-2 grid grid-cols-2  items-center space-x-2">
+        <div className="mt-2 grid grid-cols-2 items-center  gap-2">
           <Button type="reset" onClick={onSearchReset} variant={"outline"} size={"sm"}>
             Đặt lại
           </Button>
@@ -107,7 +107,7 @@ const Sidebar = () => {
                       value={field.value.toString()}
                     >
                       {tournamentStatuses.map((status) => (
-                        <FormItem key={status} className="flex items-center space-x-2">
+                        <FormItem key={status} className="flex items-center gap-2">
                           <FormControl>
                             <RadioGroupItem value={status.toString()} />
                           </FormControl>
@@ -124,7 +124,7 @@ const Sidebar = () => {
             <Separator />
             <Address />
             <Separator />
-            <div className="grid grid-cols-2 space-x-2">
+            <div className="grid grid-cols-2 gap-2">
               <Button type="reset" onClick={onReset} variant={"outline"} size={"sm"}>
                 Đặt lại
               </Button>

@@ -23,7 +23,7 @@ const Tabs = ({ items }: Props) => {
 
   return items.map(({ href, label, childs, className }) => (
     <div key={href} className="relative flex w-full flex-col space-y-2">
-      <div className="flex items-center space-x-1">
+      <div className="flex items-center gap-1">
         {childs && childs.canShow && expand && (
           <div className="absolute -left-1 bottom-0 top-0 w-[1px] bg-gray-400" />
         )}

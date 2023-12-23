@@ -105,8 +105,8 @@ const BookForm = ({ bookedFields, fieldId, guest }: Props) => {
           },
         }}
       />
-      <div className="flex items-center space-x-2">
-        <div className="flex flex-1 items-center space-x-1 text-muted-foreground">
+      <div className="flex items-center gap-2">
+        <div className="flex flex-1 items-center gap-1 text-muted-foreground">
           <Info size={16} />
           <p className="text-sm">Những khung giờ bạn đã đặt sẽ có viền đậm hơn.</p>
         </div>

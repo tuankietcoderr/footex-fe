@@ -1,3 +1,4 @@
+import { ECard } from "@/interface/ICardFine"
 import { EFieldStatus } from "@/interface/IField"
 import { EFieldBookedQueueStatus } from "@/interface/IFieldBookedQueue"
 import { ETournamentStatus } from "@/interface/ITournament"
@@ -91,6 +92,17 @@ const vilizeFieldBookedQueueStatus = (st: EFieldBookedQueueStatus) => {
   }
 }
 
+const vilizeCardFine = (card: ECard) => {
+  switch (card) {
+    case ECard.RED:
+      return "Thẻ đỏ"
+    case ECard.YELLOW:
+      return "Thẻ vàng"
+    default:
+      return "Không xác định"
+  }
+}
+
 export {
   vilizeFieldStatus,
   colorizeFieldStatus,
@@ -98,4 +110,5 @@ export {
   colorizeTournamentStatus,
   colorizeFieldBookedQueueStatus,
   vilizeFieldBookedQueueStatus,
+  vilizeCardFine,
 }

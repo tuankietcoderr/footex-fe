@@ -67,7 +67,7 @@ const RatingBox = ({ objectId, objectType, guest }: Props) => {
   }, [isFocused])
 
   return (
-    <div className="mt-2 flex space-x-2">
+    <div className="mt-2 flex gap-2">
       <AppAvatar
         src={guest?.avatar || ""}
         alt={guest?.name!}

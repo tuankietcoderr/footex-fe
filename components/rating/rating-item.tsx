@@ -11,7 +11,7 @@ const RatingItem = (rate: IRate) => {
   const { _id, rateValue, description, valuer } = rate
   const guest = valuer as IGuest
   return (
-    <div className="flex space-x-2">
+    <div className="flex gap-2">
       <Link href={ROUTE.HO_SO.ID.replace(":id", guest?._id || "")}>
         <AppAvatar
           src={guest?.avatar || ""}

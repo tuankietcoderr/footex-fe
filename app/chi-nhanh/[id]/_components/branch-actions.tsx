@@ -11,7 +11,7 @@ const BranchActions = async (branch: IBranch) => {
   if (!isLogin) return null
   const branchId = branch?._id || ""
   return (
-    <div className="flex space-x-2">
+    <div className="flex gap-2">
       <Button className="flex-1" asChild>
         <a href={`tel:${branch.phoneNumber}`}>Liên hệ</a>
       </Button>

@@ -49,6 +49,45 @@ const updateGuest = async (data: IGuest) => {
   return res
 }
 
+const updateEmail = async (email: string) => {
+  const res = await FETCH_WITH_TOKEN<IGuest>(API_ROUTE.GUEST.EMAIL, {
+    method: "PUT",
+    body: JSON.stringify({ email }),
+  })
+  if (res.success) {
+    const currentSession = await getSession()
+    await setSession({
+      ...currentSession.session,
+      guest: res.data!,
+    })
+  }
+  return res
+}
+
+const sendVerifyEmail = async (email: string) => {
+  const res = await FETCH_WITH_TOKEN<IGuest>(
+    API_ROUTE.GUEST.SEND_VERIFY_EMAIL.concat(`?email=${email}`),
+    {
+      method: "POST",
+    }
+  )
+  return res
+}
+
+const loadGuestIfVerified = async () => {
+  const res = await FETCH_WITH_TOKEN<IGuest>(API_ROUTE.GUEST.INDEX)
+  if (res.success) {
+    if (res.data?.isEmailVerified) {
+      const currentSession = await getSession()
+      await setSession({
+        ...currentSession.session,
+        guest: res.data!,
+      })
+    }
+  }
+  return res
+}
+
 const logoutGuest = async () => {
   deleteSession()
 }
@@ -61,4 +100,13 @@ const changePassword = async (data: { oldPassword: string; newPassword: string }
   return res
 }
 
-export { changePassword, loginGuest, logoutGuest, registerGuest, updateGuest }
+export {
+  changePassword,
+  loginGuest,
+  logoutGuest,
+  registerGuest,
+  updateGuest,
+  updateEmail,
+  sendVerifyEmail,
+  loadGuestIfVerified,
+}

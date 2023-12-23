@@ -15,7 +15,7 @@ const JointTournaments = ({ jointTournaments = [] }: Props) => {
       <h4 className="font-semibold">Giải đấu đã tham gia</h4>
       <Separator />
       {jointTournaments.length > 0 ? (
-        <div className="mt-2 grid grid-cols-4 space-x-4">
+        <div className="mt-2 grid grid-cols-4 gap-4">
           {jointTournaments.map((tournament) => (
             <TournamentItem {...tournament} key={tournament._id} />
           ))}

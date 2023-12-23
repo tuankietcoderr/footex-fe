@@ -44,6 +44,10 @@ const CACHE_TAGS = {
     GET_BY_GUEST: "get-invitements-by-guest",
     GET_TEAM_REQUEST: "get-team-requests",
   },
+  MATCH: {
+    GET_ALL: "get-all-matches",
+    GET_BY_ID: "get-match-by-id",
+  },
 }
 
 export default CACHE_TAGS
