@@ -11,10 +11,15 @@ import { Circle, CircleDollarSign, MapPin, Users } from "lucide-react"
 import Link from "next/link"
 import React from "react"
 import FieldActions from "./field-actions"
+import { getSession } from "@/services/auth/cookie-session"
 
-const FieldMainInfo = (field: IField) => {
-  const { image, price, type, status, name } = field
+const FieldMainInfo = async (field: IField) => {
+  const {
+    session: { guest },
+  } = await getSession()
+  const { image, price, type, status, name, saves } = field
   const branch = field.branch as IBranch
+  const isSaved = (saves as string[])?.includes(guest?._id ?? "")
   return (
     <div className="grid grid-cols-[18rem_auto] gap-4">
       <div className="grid place-items-center rounded-md border shadow-sm">
@@ -63,7 +68,7 @@ const FieldMainInfo = (field: IField) => {
             </CardDescription>
           </div>
         </div>
-        <FieldActions fieldId={field?._id!} />
+        <FieldActions fieldId={field?._id!} isSaved={isSaved} />
       </div>
     </div>
   )

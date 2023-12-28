@@ -22,7 +22,7 @@ const GuestMainInfo = async (guest: IGuest) => {
           alt={name}
           width={400}
           height={400}
-          className="max-h-[14rem] w-full object-cover p-2"
+          className="max-h-[14rem] w-full object-contain p-2"
         />
       </div>
       <div className="flex justify-between gap-2 rounded-md border p-4 shadow-sm">

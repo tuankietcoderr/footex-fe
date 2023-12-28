@@ -20,8 +20,6 @@ const formSchema = z.object({
   city: z.string(),
   district: z.string(),
   ward: z.string(),
-  openAt: z.number().min(0).max(24),
-  closeAt: z.number().min(0).max(24),
 })
 
 const Sidebar = () => {
@@ -34,8 +32,6 @@ const Sidebar = () => {
       city: "",
       district: "",
       ward: "",
-      openAt: 7,
-      closeAt: 22,
     },
   })
 
@@ -44,8 +40,6 @@ const Sidebar = () => {
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     const paramsData = {
       ...data,
-      openAt: data.openAt.toString(),
-      closeAt: data.closeAt.toString(),
     }
     router.replace(ROUTE.CHI_NHANH.INDEX + "?" + new URLSearchParams(paramsData).toString())
   }
@@ -55,8 +49,6 @@ const Sidebar = () => {
       city: "",
       district: "",
       ward: "",
-      openAt: 7,
-      closeAt: 22,
     })
   }
 
@@ -102,45 +94,6 @@ const Sidebar = () => {
       <Form {...form}>
         <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-col space-y-2">
-            <div className="grid grid-cols-[auto_2px_auto] gap-2">
-              <Label className="col-span-3">Giờ hoạt động</Label>
-              <FormField
-                control={form.control}
-                name="openAt"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        min={0}
-                        max={24}
-                        {...field}
-                        onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <Separator orientation="vertical" />
-              <FormField
-                control={form.control}
-                name="closeAt"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        min={0}
-                        max={24}
-                        {...field}
-                        onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-            </div>
-            <Separator />
             <Address />
             <Separator />
             <div className="grid grid-cols-2 gap-2">

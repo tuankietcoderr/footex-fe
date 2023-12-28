@@ -17,11 +17,11 @@ const AllFields = async ({ searchParams }: Props) => {
     )
   }
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-4 gap-4">
       {fields.length > 0 ? (
         fields.map((field) => <FieldItem key={field._id} {...field} />)
       ) : (
-        <div>Không có sân bóng nào</div>
+        <div className="col-span-4">Không có sân bóng nào</div>
       )}
     </div>
   )

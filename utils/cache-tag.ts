@@ -11,6 +11,7 @@ const CACHE_TAGS = {
     GET_BY_ID: "get-field-by-id",
     GET_BY_ADDRESS: "get-field-by-address",
     GET_BOOKED: "get-field-booked",
+    GET_SAVED: "get-saved-fields",
   },
   FIELD_BOOKED_QUEUE: {
     GET_FIELD_BOOKED_QUEUE: "get-field-booked-queue",

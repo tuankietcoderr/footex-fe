@@ -17,11 +17,11 @@ const AllTournaments = async ({ searchParams }: Props) => {
     )
   }
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-4 gap-4">
       {tournaments.length > 0 ? (
         tournaments.map((field) => <TournamentItem key={field._id} {...field} />)
       ) : (
-        <div>Không có giải đấu nào</div>
+        <div className="grid-cols-4">Không có giải đấu nào</div>
       )}
     </div>
   )

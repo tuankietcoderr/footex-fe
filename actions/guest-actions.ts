@@ -10,7 +10,6 @@ const getGuestById = async (id: string) => {
     next: {
       tags: [CACHE_TAGS.GUEST.GET_BY_ID],
     },
-    cache: "force-cache",
   })
   return data
 }

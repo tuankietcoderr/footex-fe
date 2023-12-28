@@ -22,7 +22,9 @@ const Footer = () => {
             <h3 className="font-bold text-primary-foreground">Dành cho chủ sân</h3>
             <ul className="mt-4">
               <li className="text-primary-foreground">
-                <Link href={OwnerURL.concat("/dang-ky")}>Đăng ký trở thành chủ sân</Link>
+                <Link href={OwnerURL.concat("/dang-ky")} target="_blank">
+                  Đăng ký trở thành chủ sân
+                </Link>
               </li>
               <li className="text-primary-foreground">
                 <Link href={OwnerURL.concat("/dang-nhap")}>Đăng nhập</Link>

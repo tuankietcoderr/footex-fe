@@ -13,8 +13,8 @@ export default function Home() {
         {/* <HomeIntro /> */}
         <WhyChooseUs />
         <OccuringTournaments />
-        <FeatureWay />
-        <MostFavoriteTeam />
+        {/* <FeatureWay /> */}
+        {/* <MostFavoriteTeam /> */}
       </div>
     </div>
   )

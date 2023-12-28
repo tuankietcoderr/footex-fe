@@ -15,6 +15,9 @@ const API_ROUTE = {
     BRANCH: "/field/branch/:id",
     STATUS: "/field/:id/status",
     NEAR_BY: "/field/near-by/branch/:id",
+    SAVE: "/field/save",
+    SAVED: "/field/saved/:userId",
+    BOOKED: "/field/booked/:userId",
   },
   FIELD_BOOKED_QUEUE: {
     INDEX: "/field-booked-queue",

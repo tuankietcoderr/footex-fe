@@ -1,5 +1,6 @@
 import IBranch from "./IBranch"
 import IOrganization from "./IBranch"
+import IGuest from "./IGuest"
 
 export enum EFieldStatus {
   ACTIVE = "active",
@@ -17,4 +18,5 @@ export default interface IField {
   status?: EFieldStatus
   branch?: string | IBranch
   description: string
+  saves?: string[] | IGuest[]
 }

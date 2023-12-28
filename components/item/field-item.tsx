@@ -6,12 +6,28 @@ import IBranch from "@/interface/IBranch"
 import IField from "@/interface/IField"
 import { toAddress, toDot } from "@/lib/converter"
 import { cn } from "@/lib/utils"
+import { getSession } from "@/services/auth/cookie-session"
 import { colorizeFieldStatus, vilizeFieldStatus } from "@/utils/status"
-import { ArrowRight, Circle, CircleDollarSign, MapPin, Users } from "lucide-react"
+import { ArrowRight, Bookmark, Circle, CircleDollarSign, MapPin, Users } from "lucide-react"
 import Link from "next/link"
+import SaveButton from "./save-button"
 
-const FieldItem = ({ name, _id, description, status, price, type, image, branch }: IField) => {
+const FieldItem = async ({
+  name,
+  _id,
+  description,
+  status,
+  price,
+  type,
+  image,
+  branch,
+  saves,
+}: IField) => {
+  const {
+    session: { guest },
+  } = await getSession()
   const _branch = (branch ?? {}) as IBranch
+  const isSaved = (saves as string[])?.includes(guest?._id ?? "")
   return (
     <div className="flex flex-col overflow-hidden rounded-lg border border-border shadow-sm">
       <div className="">
@@ -49,7 +65,8 @@ const FieldItem = ({ name, _id, description, status, price, type, image, branch 
             </CardDescription>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-end">
+        <CardFooter className="flex justify-between">
+          <SaveButton isSaved={isSaved} fieldId={_id!} />
           <Button variant={"link"} className="transition-transform sm:hover:scale-105" asChild>
             <Link href={ROUTE.SAN_BONG.ID.replace(":id", _id || "")}>
               Chi tiết <ArrowRight size={20} />

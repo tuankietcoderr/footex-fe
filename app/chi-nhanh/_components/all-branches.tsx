@@ -15,11 +15,11 @@ const AllBranches = async ({ searchParams }: ParamsProps) => {
   }
 
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-4 gap-4">
       {branches.length > 0 ? (
         branches.map((branch) => <BranchItem key={branch._id} {...branch} />)
       ) : (
-        <div>Không có chi nhánh nào</div>
+        <div className="col-span-4">Không có chi nhánh nào</div>
       )}
     </div>
   )
