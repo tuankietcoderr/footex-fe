@@ -13,9 +13,13 @@ const JointTeams = ({ jointTeams = [] }: Props) => {
       <h4 className="font-semibold">Đội bóng đã tham gia</h4>
       <Separator />
       <div className="mt-2 grid grid-cols-4 gap-4">
-        {jointTeams.map((team) => (
-          <TeamItem {...team} key={team._id} />
-        ))}
+        {jointTeams.length > 0 ? (
+          jointTeams.map((team) => <TeamItem {...team} key={team._id} />)
+        ) : (
+          <p className="col-span-4 mt-2 text-center text-sm text-muted-foreground">
+            Không có đội bóng nào
+          </p>
+        )}
       </div>
     </div>
   )

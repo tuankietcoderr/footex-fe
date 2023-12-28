@@ -24,7 +24,8 @@ const FETCH = async <T extends any>(
   }
   try {
     const params = new URLSearchParams((opts as Options).params)
-    const res = await fetch(`${API_ROUTE.BASE_URL}${url}?${params.toString()}`, opts)
+    const urlWithParams = `${url}?${params.toString()}`
+    const res = await fetch(`${API_ROUTE.BASE_URL}${opts.params ? urlWithParams : url}`, opts)
     const data = await res.json()
     return {
       ...data,

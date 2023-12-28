@@ -17,7 +17,7 @@ const TeamMemberItem = async ({ member, actions = [] }: Props) => {
   return (
     <div>
       <div className="flex items-center justify-between gap-4 rounded-md border p-2 shadow-sm">
-        <AppAvatar src={member?.avatar!} alt={member?.name} className="self-start" />
+        <AppAvatar src={member?.avatar!} alt={member?.name} className="" />
         <div className="flex flex-1 flex-col justify-between">
           <Link href={ROUTE.HO_SO.ID.replace(":id", member?._id!)} className="font-semibold">
             {member.name} {guest?._id === member?._id ? "(Bạn)" : ""}
