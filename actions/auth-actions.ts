@@ -100,6 +100,16 @@ const changePassword = async (data: { oldPassword: string; newPassword: string }
   return res
 }
 
+const forgotPassword = async (email: string) => {
+  const res = await FETCH(API_ROUTE.GUEST.FORGOT_PASSWORD, {
+    method: "POST",
+    params: {
+      email,
+    },
+  })
+  return res
+}
+
 export {
   changePassword,
   loginGuest,
@@ -109,4 +119,5 @@ export {
   updateEmail,
   sendVerifyEmail,
   loadGuestIfVerified,
+  forgotPassword,
 }

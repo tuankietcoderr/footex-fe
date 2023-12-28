@@ -1,7 +1,9 @@
-import React from "react"
+import ROUTE from "@/constants/route"
+import { ParamsProps } from "@/utils/params"
+import { redirect } from "next/navigation"
 
-const page = () => {
-  return <div>page</div>
+const page = ({ params: { id } }: ParamsProps) => {
+  redirect(ROUTE.DOI_BONG.MANAGE.CREATED.MEMBER.INVITE.replace(":id", id))
 }
 
 export default page

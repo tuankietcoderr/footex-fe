@@ -55,7 +55,7 @@ const Page = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="h-fit w-[400px] space-y-4 rounded-lg p-6 shadow-lg"
+        className="flex h-fit w-[400px] flex-col gap-4 rounded-lg p-6 shadow-lg"
       >
         <h1 className="text-center text-2xl font-semibold">Đăng nhập</h1>
 
@@ -85,6 +85,11 @@ const Page = () => {
             </FormItem>
           )}
         />
+        <div className="self-end">
+          <Link href={ROUTE.AUTH.FORGOT_PASSWORD} className="text-sm underline">
+            Quên mật khẩu?
+          </Link>
+        </div>
         <Button type="submit" className="w-full">
           Đăng nhập
         </Button>

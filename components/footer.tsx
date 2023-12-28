@@ -22,13 +22,10 @@ const Footer = () => {
             <h3 className="font-bold text-primary-foreground">Dành cho chủ sân</h3>
             <ul className="mt-4">
               <li className="text-primary-foreground">
-                <Link href={OwnerURL.concat("/dang-ky")}>Đăng ký</Link>
+                <Link href={OwnerURL.concat("/dang-ky")}>Đăng ký trở thành chủ sân</Link>
               </li>
               <li className="text-primary-foreground">
                 <Link href={OwnerURL.concat("/dang-nhap")}>Đăng nhập</Link>
-              </li>
-              <li className="text-primary-foreground">
-                <Link href={OwnerURL.concat("/dashboard")}>Quản lý sân bóng</Link>
               </li>
             </ul>
           </div>
@@ -36,13 +33,10 @@ const Footer = () => {
             <h3 className="font-bold text-primary-foreground">Dành cho khách</h3>
             <ul className="mt-4">
               <li className="text-primary-foreground">
-                <Link href={"/dang-ky"}>Đăng ký</Link>
+                <Link href={"/dang-ky"}>Đăng ký tài khoản</Link>
               </li>
               <li className="text-primary-foreground">
                 <Link href={"/dang-nhap"}>Đăng nhập</Link>
-              </li>
-              <li className="text-primary-foreground">
-                <Link href={"/san-bong"}>Tìm sân bóng</Link>
               </li>
             </ul>
           </div>

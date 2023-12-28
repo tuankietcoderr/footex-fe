@@ -2,14 +2,17 @@
 
 import API_ROUTE from "@/constants/api-route"
 import { FetchResponse } from "./response-helper"
-import { cookies } from "next/headers"
-import { COMMON } from "@/constants/common"
 import { getSession } from "@/services/auth/cookie-session"
+
+type Options = {
+  params?: Record<string, any>
+  // eslint-disable-next-line no-undef
+} & RequestInit
 
 const FETCH = async <T extends any>(
   url: string,
   // eslint-disable-next-line no-undef
-  options?: RequestInit
+  options?: Options
 ): Promise<FetchResponse<T>> => {
   const opts = {
     ...options,
@@ -20,12 +23,15 @@ const FETCH = async <T extends any>(
     },
   }
   try {
-    const res = await fetch(`${API_ROUTE.BASE_URL}${url}`, opts)
+    const params = new URLSearchParams((opts as Options).params)
+    const res = await fetch(`${API_ROUTE.BASE_URL}${url}?${params.toString()}`, opts)
+    const data = await res.json()
     return {
-      ...(await res.json()),
+      ...data,
       code: res.status,
     }
   } catch (error: any) {
+    console.log(error)
     return {
       success: false,
       message: error?.response?.message ?? error?.message,
