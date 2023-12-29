@@ -32,7 +32,7 @@ const NearbyBranchFields = async ({ fieldId, branchId, city, district, ward }: P
         {fieldsFiltered.length > 0 ? (
           fieldsFiltered.map((field) => <FieldItem {...field} key={field._id} />)
         ) : (
-          <p className="grid-col-4 mt-2 text-center text-sm text-muted-foreground">
+          <p className="col-span-4 mt-2 text-center text-sm text-muted-foreground">
             Không có sân bóng nào
           </p>
         )}
