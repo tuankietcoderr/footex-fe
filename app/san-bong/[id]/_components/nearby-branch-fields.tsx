@@ -23,15 +23,14 @@ const NearbyBranchFields = async ({ fieldId, branchId, city, district, ward }: P
       </div>
     )
   const fields = data as IField[]
-  return fields.length <= 0 ? null : (
+  const fieldsFiltered = fields.filter((f) => f._id !== fieldId)
+  return (
     <div className="rounded-md border border-border p-4 shadow-sm">
       <h4 className="font-semibold">Sân bóng gần đây</h4>
       <Separator />
       <div className="mt-2 grid grid-cols-4 gap-4">
-        {fields.length > 0 ? (
-          fields
-            .filter((f) => f._id !== fieldId)
-            .map((field) => <FieldItem {...field} key={field._id} />)
+        {fieldsFiltered.length > 0 ? (
+          fieldsFiltered.map((field) => <FieldItem {...field} key={field._id} />)
         ) : (
           <p className="grid-col-4 mt-2 text-center text-sm text-muted-foreground">
             Không có sân bóng nào
