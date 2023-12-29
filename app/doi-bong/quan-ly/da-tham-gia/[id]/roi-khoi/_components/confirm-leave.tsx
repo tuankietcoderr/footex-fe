@@ -1,15 +1,32 @@
 "use client"
+import { leaveTeam } from "@/actions/team-actions"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import ROUTE from "@/constants/route"
+import { useRouter } from "next/navigation"
 import React from "react"
 import toast from "react-hot-toast"
 
-const ConfirmLeave = () => {
-  const [value, setValue] = React.useState("")
+type Props = {
+  teamId: string
+}
 
-  const onSubmit = () => {
+const ConfirmLeave = ({ teamId }: Props) => {
+  const [value, setValue] = React.useState("")
+  const router = useRouter()
+  const onSubmit = async () => {
     if (value === "Xác nhận rời khỏi đội bóng") {
-      console.log("delete")
+      toast.loading("Đang xử lý...", {
+        duration: Infinity,
+      })
+      const { success, message } = await leaveTeam(teamId)
+      toast.dismiss()
+      if (success) {
+        toast.success(message)
+        router.replace(ROUTE.DOI_BONG.MANAGE.JOINED.INDEX)
+      } else {
+        toast.error(message)
+      }
     } else {
       toast.error("Văn bản không trùng nhau!")
     }
@@ -21,7 +38,7 @@ const ConfirmLeave = () => {
         <p>
           Nhập{" "}
           <span className="select-none font-semibold text-destructive">
-            Xác nhận rời khỏi đội bóng đội bóng
+            Xác nhận rời khỏi đội bóng
           </span>{" "}
           để thực thi hành động
         </p>

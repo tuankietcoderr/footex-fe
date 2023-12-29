@@ -1,7 +1,8 @@
 import React from "react"
 import ConfirmLeave from "./_components/confirm-leave"
+import { ParamsProps } from "@/utils/params"
 
-const page = () => {
+const page = ({ params: { id } }: ParamsProps) => {
   return (
     <div>
       <div className="prose max-w-none">
@@ -54,7 +55,7 @@ const page = () => {
           và chuẩn bị đầy đủ.
         </p>
       </div>
-      <ConfirmLeave />
+      <ConfirmLeave teamId={id} />
     </div>
   )
 }
