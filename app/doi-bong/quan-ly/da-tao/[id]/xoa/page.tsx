@@ -1,7 +1,8 @@
 import React, { Fragment } from "react"
 import ConfirmDelete from "./_components/confirm-delete"
+import { ParamsProps } from "@/utils/params"
 
-const page = async () => {
+const page = async ({params: {id}} : ParamsProps) => {
   return (
     <div className="flex h-full flex-col">
       <div className="prose max-w-none">
@@ -28,7 +29,7 @@ const page = async () => {
           tôi.
         </p>
       </div>
-      <ConfirmDelete />
+      <ConfirmDelete teamId={id}/>
     </div>
   )
 }

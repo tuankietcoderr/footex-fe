@@ -1,15 +1,35 @@
 "use client"
+import { deleteTeam } from "@/actions/team-actions"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import ROUTE from "@/constants/route"
+import { useRouter } from "next/navigation"
 import React from "react"
+import toast from "react-hot-toast"
 
-const ConfirmDelete = () => {
+type Props = {
+  teamId: string
+}
+
+const ConfirmDelete = ({ teamId }: Props) => {
   const [value, setValue] = React.useState("")
-
-  const onSubmit = () => {
+  const router = useRouter()
+  const onSubmit = async () => {
     if (value === "Xác nhận xóa đội bóng") {
-      console.log("delete")
+      toast.loading("Đang xử lý...", {
+        duration: Infinity,
+      })
+      const { success, message } = await deleteTeam(teamId)
+      toast.dismiss()
+      if (success) {
+        toast.success(message)
+        router.replace(ROUTE.DOI_BONG.MANAGE.CREATED.INDEX)
+      } else {
+        toast.error(message)
+      }
+    } else {
+      toast.error("Văn bản không trùng nhau!")
     }
   }
 

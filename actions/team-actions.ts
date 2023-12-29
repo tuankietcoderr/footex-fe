@@ -94,6 +94,18 @@ const leaveTeam = async (id: string) => {
   return res
 }
 
+const deleteTeam = async (id: string) => {
+  const res = await FETCH_WITH_TOKEN<ITeam>(API_ROUTE.TEAM.ID.replace(":id", id), {
+    method: "DELETE",
+  })
+  if (res.success) {
+    revalidateTag(CACHE_TAGS.TEAM.GET_BY_ID)
+    revalidateTag(CACHE_TAGS.TEAM.GET_BY_CAPTAIN)
+    revalidateTag(CACHE_TAGS.TEAM.GET_GUEST_JOINT)
+  }
+  return res
+}
+
 export {
   getAllTeams,
   getGuestJointTeams,
@@ -103,4 +115,5 @@ export {
   updateTeam,
   kickMember,
   leaveTeam,
+  deleteTeam,
 }

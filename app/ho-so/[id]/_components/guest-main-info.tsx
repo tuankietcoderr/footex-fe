@@ -1,7 +1,7 @@
 import ServerImage from "@/components/server-image"
 import { CardDescription } from "@/components/ui/card"
 import { toAddress } from "@/lib/converter"
-import { Mail, MapPin, Phone } from "lucide-react"
+import { Flag, Mail, MapPin, Phone } from "lucide-react"
 
 import IGuest from "@/interface/IGuest"
 import { Button } from "@/components/ui/button"
@@ -47,7 +47,7 @@ const GuestMainInfo = async (guest: IGuest) => {
             </div>
           </div>
         </div>
-        {currentGuest?._id === _id && (
+        {currentGuest?._id === _id ? (
           <div className="self-end">
             <Button variant={"outline"} asChild>
               <Link href={ROUTE.HO_SO.EDIT.replace(":id", _id || "")} scroll={false} replace>
@@ -55,6 +55,12 @@ const GuestMainInfo = async (guest: IGuest) => {
               </Link>
             </Button>
           </div>
+        ) : (
+          <Button variant={"ghost"} className="self-end" size={"icon"} asChild>
+            <Link href={ROUTE.HO_SO.REPORT.replace(":id", _id!)}>
+              <Flag size={16} />
+            </Link>
+          </Button>
         )}
       </div>
     </div>

@@ -17,6 +17,7 @@ const ROUTE = {
     ID: "/ho-so/:id",
     TEAM: "/ho-so/:id/doi-bong",
     EDIT: "/ho-so/:id/chinh-sua",
+    REPORT: "/ho-so/:id/to-cao",
   },
   DOI_BONG: {
     INDEX: "/doi-bong",
