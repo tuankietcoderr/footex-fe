@@ -71,7 +71,7 @@ const CreateTeamForm = () => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Tên sân</FormLabel>
+              <FormLabel>Tên đội bóng</FormLabel>
               <FormControl>
                 <Input placeholder="Foot Văn Tex" {...field} />
               </FormControl>

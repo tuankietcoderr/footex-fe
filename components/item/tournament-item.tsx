@@ -27,7 +27,7 @@ const TournamentItem = (tournament: ITournament) => {
           width={400}
           height={400}
           alt={name}
-          className="w-full rounded-t-md object-cover p-2"
+          className="h-[10rem] w-full rounded-t-md object-contain p-2"
         />
       </div>
       <Card className="flex flex-1 flex-col justify-between border-none shadow-none">

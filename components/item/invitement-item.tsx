@@ -16,7 +16,7 @@ const InvitementItem = async (invitement: IInvitement) => {
   const fromGuest = from as IGuest
   const toGuest = to as IGuest
   const _team = team as ITeam
-  const isCaptainSent = guest?._id === (_team.captain as IGuest)._id
+  const isCaptainSent = guest?._id === _team.captain
 
   const renderInvitementText = () => {
     if (isJoinRequest)

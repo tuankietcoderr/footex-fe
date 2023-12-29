@@ -8,7 +8,14 @@ const ServerImage = (props: ImageProps) => {
   return src ? (
     <Image {...props} alt={alt} loader={({ src, width }) => `${src}?w=${width}`} />
   ) : (
-    <FootballGoalSemi fill="var(--primary)" className="fill-primary" />
+    <div className="h-auto w-full">
+      <FootballGoalSemi
+        fill="var(--primary)"
+        className="fill-primary"
+        height={160}
+        width={"100%"}
+      />
+    </div>
   )
 }
 

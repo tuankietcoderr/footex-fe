@@ -21,7 +21,9 @@ const JointTournaments = ({ jointTournaments = [] }: Props) => {
           ))}
         </div>
       ) : (
-        <p className="mt-2 text-center text-sm text-muted-foreground">Chưa tham gia giải đấu nào</p>
+        <p className="col-span-4 mt-2 text-center text-sm text-muted-foreground">
+          Chưa tham gia giải đấu nào
+        </p>
       )}
     </div>
   )
